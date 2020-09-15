@@ -19,3 +19,5 @@
 .config/htop
 .config/neofetch
 .zsh_history
+.gitconfig
+.bashrc
