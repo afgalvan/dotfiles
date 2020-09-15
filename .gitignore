@@ -10,7 +10,6 @@
 .hushlogin
 .npm
 .local
-.tmux
 .config/nvim/plugged
 .bash_history
 .bash_logout
