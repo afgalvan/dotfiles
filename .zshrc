@@ -44,7 +44,7 @@ CASE_SENSITIVE="true"
 # DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
-DISABLE_LS_COLORS="false"
+DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
 DISABLE_AUTO_TITLE="true"
@@ -115,6 +115,8 @@ alias vimconfig="nvim ~/.config/nvim/init.vim"
 alias tmuxconfig="nvim ~/.tmux.conf.local"
 alias javier="echo \"No me digas ese nombre ve, puro pelao mk\""
 alias andres="echo \"Haz mencionado a mi Dios pichón 🍆\""
+alias editUPC="nvim /mnt/c/Users/andre/Documents/Programming/UPC/C-lang"
+alias goUPC="cd /mnt/c/Users/andre/Documents/Programming/UPC/C-lang"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

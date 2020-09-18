@@ -34,24 +34,21 @@ noremap <leader>b :NERDTree<CR>
 noremap <leader>f /
 nnoremap <C-s> :w<CR>
 nnoremap <C-x> :x<CR>
+nnoremap <C-Q> :q<CR>
 
 "Put all standard C and C++ keywords under Vim's highlight group 'Statement' (affects both C and C++ files)
 let g:cpp_simple_highlight = 1
 "Enable highlighting of named requirements (C++20 library concepts)
 let g:cpp_named_requirements_highlight = 1
-"Enable colors for brackets
-"let g:rainbow_active = 1
-"Colors order
-"let g:rainbow_ctermfgs = ['yellow', 'lightblue', 'magenta']
 
-"Airline customization
+" Airline customization
 let g:airline_powerline_fonts = 1
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 
-"unicode symbols
+" Unicode symbols
 let g:airline_left_sep = '»'
 let g:airline_left_sep = '▶'
 let g:airline_right_sep = '«'
@@ -65,7 +62,7 @@ let g:airline_symbols.paste = 'Þ'
 let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
 
-" airline symbols
+" Airline symbols
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
@@ -78,34 +75,34 @@ highlight Comment cterm=italic gui=italic
 set t_ZH=^[[3m
 set t_ZR=^[[23m
 
-"Indent line config
+" Indent line config
 let g:indentLine_enabled = 1
 let g:indentLine_char = '|'
 let g:indentLine_fileTypeExclude = ['text', 'sh', 'help', 'terminal']
 let g:indentLine_bufNameExclude = ['NERD_tree.', 'term:.']
-"Indent size config
+" Indent size config
 set cindent
 set tabstop=8
 set autoindent
 set smartindent
 set shiftwidth=4
 
-"Copy/paste
+" Copy/paste
 set pastetoggle=<f5>
 
-"incsearch's required maps
+" Incsearch's required maps
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
-"Remove Highlight after the search
+" Remove Highlight after the search
 let g:incsearch#auto_nohlsearch = 1
 set incsearch " search as characters are entered
 set hlsearch " highlights matching searcher
 
-"Comments config
+" Comments config
 let g:NERDCompactSexyComs = 1 " Use compact syntax for prettified multi-line comments
 let g:NERDTrimTrailingWhitespace = 1 " Enable trimming of trailing whitespace when uncommenting
 
-"THEME CONFIGURATIONS
+" THEME CONFIGURATIONS
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors " Activate true colors in terminal
@@ -114,9 +111,9 @@ if (has('nvim'))
     let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 endif
 
-let g:material_terminal_italics = 1
-let g:material_theme_style = 'default'
-let g:airline_theme = 'material'
+" let g:material_terminal_italics = 1
+" let g:material_theme_style = 'default'
+" let g:airline_theme = 'material'
 
 " colorscheme material
 colorscheme onedark  " Activate the theme
