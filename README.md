@@ -1,3 +1,3 @@
 # dotfiles
 My dotfiles
-![screenshot](screenshot.png "Desktop")
+![screenshot](desktop.jfif "Desktop")
