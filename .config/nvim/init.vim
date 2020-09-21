@@ -1,3 +1,4 @@
+set cursorline
 set encoding=utf-8
 set nocompatible "Non Vi weird configurations
 set nu rnu "Reltaive line numbers

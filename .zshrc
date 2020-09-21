@@ -120,7 +120,8 @@ alias zshconfig='nvim ~/.zshrc'
 alias vimconfig='nvim ~/.config/nvim/init.vim'
 alias tmuxconfig='nvim ~/.tmux.conf.local'
 alias goUPC='cd /mnt/d/Files/Programming/UPC/C-lang'
-alias goHOME='cd /mnt/d/Files'
+alias goHOME='cd /mnt/d/Files/Programming'
+alias goMINES='cd /mnt/d/Files'
 alias javier='echo \"No me digas ese nombre ve, puro pelao mk\"'
 alias andres='echo \"Haz mencionado a mi Dios pichón 🍆\"'
 alias ls='exa --icons'
@@ -139,5 +140,4 @@ export NVM_DIR="$HOME/.nvm"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
-cd /mnt/d/Files/Programming
 clear
