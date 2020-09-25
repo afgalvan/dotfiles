@@ -9,3 +9,7 @@ shell:
 	sudo apt install tmux
 	source-file ~/.tmux.conf.local
 	source-file ~/.zshrc
+
+overwrite:
+	cp /home/andresg/Documents/Programming/dotfiles/.config/nvim/init.vim ~/.config/nvim/init.vim
+	/home/andresg/Documents/Programming/dotfiles/.zshrc ~/
