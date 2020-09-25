@@ -25,7 +25,7 @@ Plug 'preservim/nerdcommenter' "Comments automate
 Plug 'aurieh/discord.nvim', { 'do': ':UpdateRemotePlugins' } "Discord rich presence
 "Themes
 Plug 'joshdick/onedark.vim'
-Plug 'kaicataldo/material.vim', { 'branch': 'main'  }
+Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 call plug#end()
 
 
@@ -38,7 +38,8 @@ noremap <leader>f /
 noremap <leader>p :PlugInstall<CR>
 nnoremap <C-s> :w<CR>
 nnoremap <C-x> :x<CR>
-nnoremap <C-Q> :q<CR>
+nnoremap <C-q> :q<CR>
+nnoremap <C-Q> :q!<CR>
 
 "Put all standard C and C++ keywords under Vim's highlight group 'Statement' (affects both C and C++ files)
 let g:cpp_simple_highlight = 1
@@ -263,6 +264,8 @@ let g:NERDTrimTrailingWhitespace = 1 " Enable trimming of trailing whitespace wh
 let g:NERDSpaceDelims = 1
 
 " THEME CONFIGURATIONS
+set t_ZH=^[[3m
+set t_ZR=^[[23m
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors " Activate true colors in terminal
@@ -277,3 +280,5 @@ endif
 
 " colorscheme material
 colorscheme onedark  " Activate the theme
+" Allow italic comments
+highlight Comment cterm=italic
