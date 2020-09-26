@@ -11,5 +11,5 @@ shell:
 	source-file ~/.zshrc
 
 overwrite:
-	cp /home/andresg/Documents/Programming/dotfiles/.config/nvim/init.vim ~/.config/nvim/init.vim
-	/home/andresg/Documents/Programming/dotfiles/.zshrc ~/
+	cp /home/andres/Documents/Programming/dotfiles/.config/nvim/init.vim ~/.config/nvim/init.vim
+	/home/andres/Documents/Programming/dotfiles/.zshrc ~/
