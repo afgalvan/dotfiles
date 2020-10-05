@@ -108,10 +108,10 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 
 ccompile() {
-  gcc "$1.c" -o "$1" 
+  gcc "$1" -o "$1" 
 }
-compilepp() {
-  g++ "$1.cpp" -o "$1"
+compile++() {
+  g++ "$1" -o "$1"
 }
 
 # Example aliases
@@ -120,6 +120,8 @@ alias zshconfig='nvim ~/.zshrc'
 alias vimconfig='nvim ~/.config/nvim/init.vim'
 alias tmuxconfig='nvim ~/.tmux.conf.local'
 alias goUPC='cd /mnt/d/Files/Programming/UPC/C-lang'
+alias parcial='goUPC; cd Workshop/1_parcial'
+alias Eparcial='goUPC; cd Workshop/1_parcial; nvim parcial.cpp'
 alias goHOME='cd /mnt/d/Files'
 alias goENV='cd /mnt/d/Files/Programming'
 alias javier='echo \"No me digas ese nombre ve, puro pelao mk\"'
@@ -140,3 +142,6 @@ export NVM_DIR="$HOME/.nvm"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
+export DENO_INSTALL="/home/andres/.deno"
+export PATH="$DENO_INSTALL/bin/:$PATH"
+export PATH="/home/andres/.local/bin:$PATH"

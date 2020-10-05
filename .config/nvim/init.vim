@@ -31,16 +31,15 @@ call plug#end()
 
 "Shortcuts
 let mapleader = ","
-noremap <leader>qw :set shiftwidth=4
+noremap <leader>qw :set shiftwidth=4<CR>
 noremap <leader>rt :tabnew<CR>
 noremap <leader>b :NERDTree<CR>
-noremap <leader>f /
 noremap <leader>p :PlugInstall<CR>
+noremap <leader>df :%s/\<foo\>/bar/g
 nnoremap <C-s> :w<CR>
 nnoremap <C-x> :x<CR>
 nnoremap <C-q> :q<CR>
 nnoremap <C-Q> :q!<CR>
-
 "Put all standard C and C++ keywords under Vim's highlight group 'Statement' (affects both C and C++ files)
 let g:cpp_simple_highlight = 1
 "Enable highlighting of named requirements (C++20 library concepts)
