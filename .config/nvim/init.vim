@@ -1,7 +1,10 @@
+" set showcmd
+" set ruler
 set cursorline
 set encoding=utf-8
 set nocompatible "Non Vi weird configurations
 set nu rnu "Reltaive line numbers
+set signcolumn=yes
 syntax on "Syntax
 autocmd vimenter * NERDTree "NERDTree always on entry
 autocmd vimenter * GitGutterEnable "GitGutter always on entry
@@ -36,6 +39,7 @@ noremap <leader>rt :tabnew<CR>
 noremap <leader>b :NERDTree<CR>
 noremap <leader>p :PlugInstall<CR>
 noremap <leader>df :%s/\<foo\>/bar/g
+noremap <leader>c "+y
 nnoremap <C-s> :w<CR>
 nnoremap <C-x> :x<CR>
 nnoremap <C-q> :q<CR>
