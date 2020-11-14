@@ -115,7 +115,6 @@ compile++() {
 }
 
 # Example aliases
-alias winterconfig='nvim /mnt/c/Users/NANCIO\ GALVAN/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json'
 alias zshconfig='nvim ~/.zshrc'
 alias vimconfig='nvim ~/.config/nvim/init.vim'
 alias tmuxconfig='nvim ~/.tmux.conf.local'
@@ -135,8 +134,11 @@ alias xupgrade='sudo apt upgrade'
 alias dotfiles='sudo cp ~/.zshrc /mnt/d/Files/Programming/dotfiles/; sudo cp -r ~/.config/nvim/init.vim /mnt/d/Files/Programming/dotfiles/.config/nvim/'
 alias vennom='cd /mnt/d/Files/Programming/Python/Vennom.py/Vennom; nvim'
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias python='python.exe'
 alias vim='nvim'
+# Windows Aliases
+alias powershell="powerlevel.exe"
+alias python='python.exe'
+alias winterconfig='nvim /mnt/c/Users/NANCIO\ GALVAN/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json'
 
 export TERM=screen-256color
 
@@ -149,6 +151,7 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
 export DENO_INSTALL="/home/andres/.deno"
 export PATH="$DENO_INSTALL/bin/:$PATH"
 export PATH="/home/andres/.local/bin:$PATH"
+
 # Copy to clipboard in WSL
 if grep -q -i microsoft /proc/version; then
     # on WSL

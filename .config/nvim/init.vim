@@ -41,7 +41,7 @@ call plug#end()
 let mapleader = ","
 noremap <leader>qw :set shiftwidth=4<CR>
 noremap <leader>rt :tabnew<CR>
-noremap <leader>b :NERDTree<CR>
+noremap <leader>b :NERDTreeToggle<CR>
 noremap <leader>p :PlugInstall<CR>
 noremap <leader>df :%s/\<foo\>/bar/g
 noremap <leader>c "+y
