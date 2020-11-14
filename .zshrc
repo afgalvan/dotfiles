@@ -133,7 +133,10 @@ alias p10kconf='nvim ~/.p10k.zsh'
 alias zupdate='sudo apt update'
 alias xupgrade='sudo apt upgrade'
 alias dotfiles='sudo cp ~/.zshrc /mnt/d/Files/Programming/dotfiles/; sudo cp -r ~/.config/nvim/init.vim /mnt/d/Files/Programming/dotfiles/.config/nvim/'
+alias vennom='cd /mnt/d/Files/Programming/Python/Vennom.py/Vennom; nvim'
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias python='python.exe'
+alias vim='nvim'
 
 export TERM=screen-256color
 
@@ -146,4 +149,13 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
 export DENO_INSTALL="/home/andres/.deno"
 export PATH="$DENO_INSTALL/bin/:$PATH"
 export PATH="/home/andres/.local/bin:$PATH"
-
+# Copy to clipboard in WSL
+if grep -q -i microsoft /proc/version; then
+    # on WSL
+    alias copy="clip.exe"
+    alias paste="powershell.exe Get-Clipboard"
+else
+    # on "normal" linux
+    alias copy="xclip -sel clip"
+    alias paste="xclip -sel clip -o"
+fi

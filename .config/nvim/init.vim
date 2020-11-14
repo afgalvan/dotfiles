@@ -5,15 +5,18 @@ set encoding=utf-8
 set nocompatible "Non Vi weird configurations
 set nu rnu "Reltaive line numbers
 set signcolumn=yes
+set clipboard=unnamedplus
 syntax on "Syntax
 autocmd vimenter * NERDTree "NERDTree always on entry
 autocmd vimenter * GitGutterEnable "GitGutter always on entry
-autocmd vimenter * AirlineTheme deus
+" autocmd vimenter * AirlineTheme deus
+" autocmd vimenter * AirlineTheme base16
+autocmd vimenter * AirlineTheme gruvbox
 
 call plug#begin()
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Languages server
-Plug 'https://github.com/vim-syntastic/syntastic.git' "Syntax 
-Plug 'https://github.com/bfrg/vim-cpp-modern.git' "C/Cpp Syntax
+Plug 'vim-syntastic/syntastic' "Syntax 
+Plug 'bfrg/vim-cpp-modern' "C/Cpp Syntax
 Plug 'sheerun/vim-polyglot' "Syntax highlighter
 Plug 'bling/vim-airline' "Status bar
 Plug 'vim-airline/vim-airline-themes' "Status bar custom
@@ -26,11 +29,13 @@ Plug 'Yggdroot/indentLine' "Indentation line guide
 Plug 'jiangmiao/auto-pairs' "Quotes, parenthesis, etc... autocompletation
 Plug 'preservim/nerdcommenter' "Comments automate
 Plug 'aurieh/discord.nvim', { 'do': ':UpdateRemotePlugins' } "Discord rich presence
+Plug 'neomake/neomake' " Asynchronous linting
 "Themes
 Plug 'joshdick/onedark.vim'
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+Plug 'ayu-theme/ayu-vim'
+Plug 'morhetz/gruvbox'
 call plug#end()
-
 
 "Shortcuts
 let mapleader = ","
@@ -40,13 +45,27 @@ noremap <leader>b :NERDTree<CR>
 noremap <leader>p :PlugInstall<CR>
 noremap <leader>df :%s/\<foo\>/bar/g
 noremap <leader>c "+y
+nnoremap <C-y> "+y
+vnoremap <C-y> "+y
 nnoremap <C-s> :w<CR>
 nnoremap <C-x> :x<CR>
 nnoremap <C-q> :q<CR>
-nnoremap <C-Q> :q!<CR>
-"Put all standard C and C++ keywords under Vim's highlight group 'Statement' (affects both C and C++ files)
+" nnoremap <C-f> :q!<CR>
+
+" When writing a buffer (no delay).
+call neomake#configure#automake('w')
+" When writing a buffer (no delay), and on normal mode changes (after 750ms).
+call neomake#configure#automake('nw', 650)
+" When reading a buffer (after 1s), and when writing (no delay).
+call neomake#configure#automake('rw', 900)
+" Full config: when writing or reading a buffer, and on changes in insert and
+" normal mode (after 500ms; no delay when writing).
+call neomake#configure#automake('nrwi', 400)
+
+
+" Put all standard C and C++ keywords under Vim's highlight group 'Statement' (affects both C and C++ files)
 let g:cpp_simple_highlight = 1
-"Enable highlighting of named requirements (C++20 library concepts)
+" Enable highlighting of named requirements (C++20 library concepts)
 let g:cpp_named_requirements_highlight = 1
 
 " Coc-nvim configurations
@@ -277,11 +296,14 @@ if (has('nvim'))
     let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 endif
 
-" let g:material_terminal_italics = 1
-" let g:material_theme_style = 'default'
-" let g:airline_theme = 'material'
+let g:material_terminal_italics = 1
+let g:material_theme_style = 'darker'
 
+let ayucolor="mirage"
 " colorscheme material
-colorscheme onedark  " Activate the theme
+" colorscheme ayu
+colorscheme gruvbox " Activate the theme
+" colorscheme onedark
+
 " Allow italic comments
 highlight Comment cterm=italic
