@@ -108,21 +108,21 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 
 ccompile() {
-  gcc "$1" -o "$1" 
+  gcc "$1.c" -o "$1" 
 }
 compile++() {
-  g++ "$1" -o "$1"
+  g++ "$1.cpp" -o "$1"
 }
 
 # Example aliases
 alias zshconfig='nvim ~/.zshrc'
-alias vimconfig='nvim ~/.config/nvim/init.vim'
+alias vimconfig='cd ~/.config/nvim; nvim init.vim'
 alias tmuxconfig='nvim ~/.tmux.conf.local'
-alias goUPC='cd /mnt/d/Files/Programming/UPC/2nd_cut'
-alias parcial='goUPC; cd Exam'
-alias Eparcial='goUPC; cd Exam; nvim parcial2.cpp'
-alias files='cd /mnt/d/Files'
 alias hack='cd /mnt/d/Files/Programming'
+alias goUPC='hack; cd UPC/2nd_semester/Programming_I/3rd_cut'
+alias parcial='goUPC; cd Exam'
+alias Eparcial='goUPC; cd Exam; nvim parcial3.cpp'
+alias files='cd /mnt/d/Files'
 alias javier='echo \"No me digas ese nombre ve, puro pelao mk\"'
 alias andres='echo \"Haz mencionado a mi Dios pichón 🍆\"'
 alias ls='exa --icons'
@@ -131,12 +131,12 @@ alias cat='bat'
 alias p10kconf='nvim ~/.p10k.zsh'
 alias zupdate='sudo apt update'
 alias xupgrade='sudo apt upgrade'
-alias dotfiles='sudo cp ~/.zshrc /mnt/d/Files/Programming/dotfiles/; sudo cp -r ~/.config/nvim/init.vim /mnt/d/Files/Programming/dotfiles/.config/nvim/'
+alias dotfiles='sudo cp ~/.zshrc /mnt/d/Files/Programming/dotfiles/; sudo rsync -av --progress ~/.config/nvim/*  . /mnt/d/Files/Programming/dotfiles/.config/nvim --exclude plugged'
 alias vennom='cd /mnt/d/Files/Programming/Python/Vennom.py/Vennom; nvim'
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias vim='nvim'
 # Windows Aliases
-alias powershell="powerlevel.exe"
+alias powershell="powershell.exe"
 alias python='python.exe'
 alias winterconfig='nvim /mnt/c/Users/NANCIO\ GALVAN/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json'
 
