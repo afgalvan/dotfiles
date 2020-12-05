@@ -1,0 +1,17 @@
+// Place your key bindings in this file to override the defaults
+[
+  {
+    "key": "ctrl+shift+4",
+    "command": "indentSwitcher.si2to4",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+shift+2",
+    "command": "4to2.convert4to2",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+alt+shift+i",
+    "command": "editor.action.inspectTMScopes"
+  }
+]
