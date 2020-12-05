@@ -13,7 +13,7 @@ Plug 'haya14busa/incsearch.vim' "Words finder
 Plug 'Yggdroot/indentLine' "Indentation line guide
 Plug 'jiangmiao/auto-pairs' "Quotes, parenthesis, etc... autocompletation
 Plug 'preservim/nerdcommenter' "Comments automate
-Plug 'aurieh/discord.nvim', { 'do': ':UpdateRemotePlugins' } "Discord rich presence
+" Plug 'aurieh/discord.nvim', { 'do': ':UpdateRemotePlugins' } "Discord rich presence
 Plug 'neomake/neomake' " Asynchronous linting
 "Themes
 Plug 'joshdick/onedark.vim'

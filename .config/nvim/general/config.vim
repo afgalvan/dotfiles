@@ -25,3 +25,6 @@ let g:indentLine_enabled = 1
 let g:indentLine_char = '|'
 let g:indentLine_fileTypeExclude = ['text', 'sh', 'help', 'terminal']
 let g:indentLine_bufNameExclude = ['NERD_tree.', 'term:.']
+
+" Comments configuration
+highlight Comment cterm=italic gui=italic
