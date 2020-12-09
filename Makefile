@@ -1,15 +1,25 @@
-shell:
+install:
 	sudo apt update
+	sudo apt-get install curl
+	sudo apt install git
 	sudo apt install zsh
 	sudo apt install screenfetch
 	sudo apt install cmatrix
 	sudo apt install htop
-	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-	chsh -s $(which zsh)
+	sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+	sudo chsh -s $(which zsh)
+	sudo git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+	sudo git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+	sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 	sudo apt install tmux
-	source-file ~/.tmux.conf.local
-	source-file ~/.zshrc
-
-overwrite:
-	cp /home/andres/Documents/Programming/dotfiles/.config/nvim/init.vim ~/.config/nvim/init.vim
-	/home/andres/Documents/Programming/dotfiles/.zshrc ~/
+	sudo git clone https://github.com/gpakosz/.tmux.git ~/.tmux
+	sudo cp .tmux.conf.local ~/.tmux/
+	cd
+	ln -s -f .tmux/.tmux.conf
+	cp ~/.tmux/.tmux.conf.local ~/
+	curl https://sh.rustup.rs -sSf | sh
+	source $HOME/.cargo/env
+	cargo install --git https://github.com/zkat/exa
+	cargo install bat
+	sudo apt update
+	sudo apt upgrade
