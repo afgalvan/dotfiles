@@ -98,7 +98,8 @@
   "testMate.cpp.log.logSentry": "enable",
   "city-lights-icons-vsc.hidesExplorerArrows": false,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": true,
+    "source.fixAll.markdownlint": true
   },
   "[javascript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
@@ -227,5 +228,7 @@
         }
       }
     ]
-  }
+  },
+  "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "terminal.external.windowsExec": "C:\\Users\\Galvan\\AppData\\Local\\Microsoft\\WindowsApps\\wt.exe"
 }

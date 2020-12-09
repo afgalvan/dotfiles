@@ -8,13 +8,13 @@ Set-Theme Custom-Theme
 
 # Edit the json which saves Windows Terminal configuration
 function Terminal-Config {
-    nvim "C:/Users/NANCIO GALVAN/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"
+    nvim "C:/Users/Galvan/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"
 }
 Set-Alias winterconfig Terminal-Config
 
 # Edit my vimrc in this case the init.vim
 function Edit-Vim {
-    nvim "C:/Users/NANCIO GALVAN/AppData/Local/nvim/init.vim"
+    nvim "C:/Users/Galvan/AppData/Local/nvim/init.vim"
 }
 Set-Alias vimconfig Edit-Vim
 
@@ -44,12 +44,12 @@ function Programming {
 Set-Alias hack Programming
 
 # Edit Powershell profile
-function Ps-Profile {nvim "C:/Users/NANCIO GALVAN/Documents/WindowsPowerShell/Microsoft.Powershell_profile.ps1"}
+function Ps-Profile {nvim "C:/Users/Galvan/Documents/WindowsPowerShell/Microsoft.Powershell_profile.ps1"}
 Set-Alias profile Ps-Profile
 
 # oh-my-posh Themes folder
 function Goto-Themes {
-    cd "C:/Users/NANCIO GALVAN/Documents/WindowsPowerShell/Modules/oh-my-posh/2.0.487/Themes\"
+    cd "C:/Users/Galvan/Documents/WindowsPowerShell/Modules/oh-my-posh/2.0.487/Themes\"
 }
 Set-Alias themes Goto-Themes
 
@@ -71,7 +71,7 @@ function Invoke-Exa {
 }
 # Tree replacement
 function Invoke-Tree {
-    & bash.exe -c "exa.exe --icons -T"
+    exa --icons -T
 }
 
 Set-Alias ls Invoke-Exa -Option AllScope

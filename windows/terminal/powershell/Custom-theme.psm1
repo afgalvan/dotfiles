@@ -13,7 +13,7 @@ function Write-Theme {
     ## Left Part
     $prompt = Set-Newline
     $currentFolder += Split-Path -Path (Get-Location) -Leaf
-    $prompt = Write-Prompt -Object "$($sl.PromptSymbols.StartSymbol)  " -ForegroundColor $sl.Colors.SessionInfoForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
+    $prompt = Write-Prompt -Object "$($sl.PromptSymbols.StartSymbol) " -ForegroundColor $sl.Colors.SessionInfoForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
     $pathSymbol = if (($pwd.Path -eq $HOME) -or ($pwd.Path -eq "D:\")) {
         $sl.PromptSymbols.PathHomeSymbol
         }
@@ -23,7 +23,7 @@ function Write-Theme {
         else { $sl.PromptSymbols.PathSymbol }
 
     # Writes the drive portion
-    $path = $pathSymbol + "  " + ($currentFolder) + " "
+    $path = $pathSymbol + " " + ($currentFolder) + " "
     $prompt += Write-Prompt -Object $path -ForegroundColor $sl.Colors.DriveForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
 
     $status = Get-VCSStatus
