@@ -7,8 +7,6 @@ function Write-Theme {
         [string]
         $with
     )
-    $adminsymbol = $sl.PromptSymbols.ElevatedSymbol
-    $venvsymbol = $sl.PromptSymbols.VirtualEnvSymbol
 
     ## Left Part
     $prompt = Set-Newline
@@ -16,11 +14,11 @@ function Write-Theme {
     $prompt = Write-Prompt -Object "$($sl.PromptSymbols.StartSymbol) " -ForegroundColor $sl.Colors.SessionInfoForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
     $pathSymbol = if (($pwd.Path -eq $HOME) -or ($pwd.Path -eq "D:\")) {
         $sl.PromptSymbols.PathHomeSymbol
-        }
-        elseif ($currentFolder -eq "Programming") {
-            $sl.PromptSymbols.ComputerSymbol
-        }
-        else { $sl.PromptSymbols.PathSymbol }
+    }
+    elseif ($currentFolder -eq "Programming") {
+        $sl.PromptSymbols.ComputerSymbol
+    }
+    else { $sl.PromptSymbols.PathSymbol }
 
     # Writes the drive portion
     $path = $pathSymbol + " " + ($currentFolder) + " "
