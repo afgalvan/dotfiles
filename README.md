@@ -2,7 +2,13 @@
 
 ## To install in Windows
 
-Before install it, you need to have installed [cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html) and added in your path.
+Before start...
+
+- Run powershell/windows terminal as administator.
+
+- You'll need [cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html) installed in your machine and added in your path.
+
+- Ensure that VS 2013, 2015, 2017 or 2019 was installed with the [Visual C++](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads) option.
 
 ```powershell -ExecutionPolicy ByPass -File windows_installer.ps1```
 
