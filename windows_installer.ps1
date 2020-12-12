@@ -28,12 +28,25 @@ function Start-Prompt() {
         Start-Sleep -Milliseconds 400
         Write-Host -NoNewline "."
         Start-Sleep -Milliseconds 400
-        Write-Host -NoNewline "."
+        Write-Host "."
         Start-Sleep -s 1
         Install-Packages
 }
 
 function Install-Packages() {
+        try {
+                cargo --version
+        }
+        catch {
+                Write-Host "Installation failed" -ForegroundColor Red
+                Write-Host "Cargo is not installed." -ForegroundColor Red
+                Write-Host "" -ForegroundColor Red
+                Write-Host "Install it and try again." -ForegroundColor White
+
+                Start-Sleep -Milliseconds 800
+                Start-Process "https://win.rustup.rs/"
+                exit 1
+        }
         Clear-Host
         Write-Host -NoNewline "Installing packages"
         Start-Sleep -Milliseconds 400
@@ -41,7 +54,7 @@ function Install-Packages() {
         Start-Sleep -Milliseconds 400
         Write-Host -NoNewline "."
         Start-Sleep -Milliseconds 400
-        Write-Host -NoNewline "."
+        Write-Host "."
         # Scoop package manager installation
         Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
         Set-ExecutionPolicy RemoteSigned -scope CurrentUser
@@ -61,9 +74,16 @@ function Install-Packages() {
         # Restart shell
         $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
         Get-ExecutionPolicy
+        
+        # Powershell plugins
         Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
         Install-Module posh-git -Scope CurrentUser -Force
         Install-Module oh-my-posh -Scope CurrentUser -Force
+
+        # Screen fetch
+        Set-ExecutionPolicy -ExecutionPolicy Unrestricted
+        Install-Module -Name windows-screenfetch
+        Import-Module windows-screenfetch
 
         # nvim installation
         scoop install neovim
@@ -78,6 +98,9 @@ function Install-Packages() {
         Copy-Item windows/terminal/powershell_config/Microsoft.PowerShell_profile.ps1 $HOME/Documents/WindowsPowerShell/
         Copy-Item .config/nvim/ $HOME/AppData/Local/
 
+        # Cargo packages installation
+        cargo install bat
+        cargo install --git https://github.com/zkat/exa --force
 }
 
 Start-Prompt
