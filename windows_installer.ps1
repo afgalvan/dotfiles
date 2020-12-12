@@ -1,4 +1,14 @@
-function Start-Prompt() {
+function Install-Animation($program) {
+        Write-Host -NoNewline "Installing $($program)"
+        Start-Sleep -Milliseconds 400
+        Write-Host -NoNewline "."
+        Start-Sleep -Milliseconds 400
+        Write-Host -NoNewline "."
+        Start-Sleep -Milliseconds 400
+        Write-Host "."
+}
+
+function Start-Prompt {
         Clear-Host
         $dot_files_msg = Get-Content installers/msg.txt
         Write-Output $dot_files_msg
@@ -33,7 +43,7 @@ function Start-Prompt() {
         Install-Packages
 }
 
-function Install-Packages() {
+function Install-Packages {
         try {
                 cargo --version
         }
@@ -48,40 +58,50 @@ function Install-Packages() {
                 exit 1
         }
         Clear-Host
-        Write-Host -NoNewline "Installing packages"
-        Start-Sleep -Milliseconds 400
-        Write-Host -NoNewline "."
-        Start-Sleep -Milliseconds 400
-        Write-Host -NoNewline "."
-        Start-Sleep -Milliseconds 400
-        Write-Host "."
+        Install-Animation("packages")
+
+        # Check for git installed
+        try {
+                git --version
+                Clear-Host
+        }
+        catch {
+                # Install git
+                # Get latest download url for git-for-windows 64-bit exe
+                Install-Animation("git")
+                $git_url = "https://api.github.com/repos/git-for-windows/git/releases/latest"
+                $asset = Invoke-RestMethod -Method Get -Uri $git_url | ForEach-Object assets | Where-Object name -like "*64-bit.exe"
+                # Download installer
+                $installer = "$env:temp\$($asset.name)"
+                Invoke-WebRequest -Uri $asset.browser_download_url -OutFile $installer
+                # Run installer
+                $git_install_inf = "<install inf file>"
+                $install_args = "/SP- /VERYSILENT /SUPPRESSMSGBOXES /NOCANCEL /NORESTART /CLOSEAPPLICATIONS /RESTARTAPPLICATIONS /LOADINF=""$git_install_inf"""
+                Start-Process -FilePath $installer -ArgumentList $install_args -Wait
+        
+                # Restart shell
+                $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
+                Get-ExecutionPolicy
+        }
+
         # Scoop package manager installation
-        Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
-        Set-ExecutionPolicy RemoteSigned -scope CurrentUser
-
-        # Install git
-        # Get latest download url for git-for-windows 64-bit exe
-        $git_url = "https://api.github.com/repos/git-for-windows/git/releases/latest"
-        $asset = Invoke-RestMethod -Method Get -Uri $git_url | ForEach-Object assets | Where-Object name -like "*64-bit.exe"
-        # Download installer
-        $installer = "$env:temp\$($asset.name)"
-        Invoke-WebRequest -Uri $asset.browser_download_url -OutFile $installer
-        # Run installer
-        $git_install_inf = "<install inf file>"
-        $install_args = "/SP- /VERYSILENT /SUPPRESSMSGBOXES /NOCANCEL /NORESTART /CLOSEAPPLICATIONS /RESTARTAPPLICATIONS /LOADINF=""$git_install_inf"""
-        Start-Process -FilePath $installer -ArgumentList $install_args -Wait
-
-        # Restart shell
-        $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
-        Get-ExecutionPolicy
+        try {
+                scoop --version
+                Clear-Host
+        }
+        catch {
+                Install-Animation("Scoop")
+                Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
+                Set-ExecutionPolicy RemoteSigned -scope CurrentUser -Force
+        }
         
         # Powershell plugins
-        Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
+        # Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
         Install-Module posh-git -Scope CurrentUser -Force
         Install-Module oh-my-posh -Scope CurrentUser -Force
 
         # Screen fetch
-        Set-ExecutionPolicy -ExecutionPolicy Unrestricted
+        # Set-ExecutionPolicy -ExecutionPolicy Unrestricted
         Install-Module -Name windows-screenfetch
         Import-Module windows-screenfetch
 
