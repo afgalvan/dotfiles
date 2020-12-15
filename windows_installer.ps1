@@ -107,7 +107,7 @@ function Install-Packages {
 
         # nvim installation
         scoop install neovim
-        scoop instal sudo
+        scoop install sudo
 
         # Check the if powershell profile exists
         if (!(Test-Path $Profile)) { New-Item -Path $Profile -Type File -Force }
