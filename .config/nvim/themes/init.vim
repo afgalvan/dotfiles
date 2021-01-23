@@ -16,12 +16,12 @@ set termguicolors " Activate true colors in terminal
 let g:material_terminal_italics = 1
 let g:material_theme_style = 'darker'
 let ayucolor="mirage"
-colorscheme gruvbox " Activate the theme
-" colorscheme onedark
+" colorscheme gruvbox " Activate the theme
+colorscheme onedark
 " colorscheme ayu
 " colorscheme base16-default-dark
 " colorscheme material
 
 " autocmd vimenter * AirlineTheme deus
 " autocmd vimenter * AirlineTheme base16
-autocmd vimenter * AirlineTheme gruvbox
+" autocmd vimenter * AirlineTheme gruvbox
