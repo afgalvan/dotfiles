@@ -97,7 +97,7 @@ else
   alias copy="xclip -sel clip"
   alias paste="xclip -sel clip -o"
 fi
-alias dotfiles="sudo cp ~/.zshrc $dotfiles_repo; sudo cp ~/.p10k.zsh $dotfiles_repo; sudo rsync -av --progress ~/.config/nvim/*  $dotfiles_repo/.config/nvim --exclude plugged"
+alias dotfiles="sudo cp ~/.zshrc $dotfiles_repo; sudo cp ~/.p10k.zsh $dotfiles_repo; sudo rsync -av --progress ~/.config/nvim/*  \"$dotfiles_repo/.config/nvim\" --exclude plugged"
 
 export TERM=screen-256color
 export MYSQL_PSS='admin'
