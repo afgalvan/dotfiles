@@ -100,8 +100,6 @@ fi
 alias dotfiles="sudo cp ~/.zshrc $dotfiles_repo; sudo cp ~/.p10k.zsh $dotfiles_repo; sudo rsync -av --progress ~/.config/nvim/*  \"$dotfiles_repo/.config/nvim\" --exclude plugged"
 
 export TERM=screen-256color
-export MYSQL_PSS='admin'
-export CRYPTO_KEY='E4v6chThwBus0YJi_4DMjFeUOX-EzwfW5WHf6OBm45s='
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
