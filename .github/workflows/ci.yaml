@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: windows
+            steps:
+              - name: Checkout
+                uses: actions/checkout@v2
+                with:
+                  ref: ${{ github.head_ref }
+
+              - name: Install
+                run: powershell -ExecutionPolicy ByPass -File windows_installer.ps1
+
+          - os: ubuntu-20.04
+            steps:
+              - name: Checkout
+                uses: actions/checkout@v2
+                with:
+                  ref: ${{ github.head_ref }
+
+              - name: Install
+                run: bash linux_installer.sh
