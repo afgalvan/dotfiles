@@ -1,10 +1,10 @@
+language: bash
+
 matrix:
   include:
     - os: linux
       dist: focal
-      language: bash
       script: bash linux_installer.sh
 
     - os: windows
-      language: bash
       script: powershell -ExecutionPolicy ByPass -File windows_installer.ps1
