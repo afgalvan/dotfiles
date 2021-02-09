@@ -1,11 +1,11 @@
 function Install-Animation($program) {
-        Write-Host -NoNewline "Installing $($program)"
+        Write-Verbose -NoNewline "Installing $($program)" -ForegroundColor White
         Start-Sleep -Milliseconds 400
-        Write-Host -NoNewline "."
+        Write-Verbose -NoNewline "."
         Start-Sleep -Milliseconds 400
-        Write-Host -NoNewline "."
+        Write-Verbose -NoNewline "."
         Start-Sleep -Milliseconds 400
-        Write-Host "."
+        Write-Verbose "."
 }
 
 function Start-Prompt {
@@ -32,33 +32,55 @@ function Start-Prompt {
 
 "
         Start-Sleep -s 1
-        Write-Host -NoNewline "Starting installation"
+        Write-Verbose -NoNewline "Starting installation"
         Start-Sleep -Milliseconds 400
-        Write-Host -NoNewline "."
+        Write-Verbose -NoNewline "."
         Start-Sleep -Milliseconds 400
-        Write-Host -NoNewline "."
+        Write-Verbose -NoNewline "."
         Start-Sleep -Milliseconds 400
-        Write-Host "."
+        Write-Verbose "."
         Start-Sleep -s 1
         Install-Packages
 }
 
 function Install-Packages {
         try {
+                choco --version
+        }
+        catch {
+                Install-Animation("Chocolatey")
+                Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+        }
+
+        # Scoop package manager installation
+        try {
+                scoop --version
+                Clear-Host
+        }
+        catch {
+                Install-Animation("Scoop")
+                Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
+                Set-ExecutionPolicy RemoteSigned -scope CurrentUser -Force
+        }
+
+        # Install cargo
+        try {
                 cargo --version
         }
         catch {
-                Write-Host "Installation failed" -ForegroundColor Red
-                Write-Host "Cargo is not installed." -ForegroundColor Red
-                Write-Host "" -ForegroundColor Red
-                Write-Host "Install it and try again." -ForegroundColor White
-
-                Start-Sleep -Milliseconds 800
-                Start-Process "https://win.rustup.rs/"
-                exit 1
+                Write-Verbose "Cargo is not installed." -ForegroundColor Red
+                try {
+                        Install-Animation("Cargo")
+                        choco install rust -y
+                } catch {
+                        Write-Verbose "Installation failed" -ForegroundColor Red
+                        Write-Verbose "" -ForegroundColor Red
+                        Write-Verbose "Install it and try again." -ForegroundColor White
+                        Start-Sleep -Milliseconds 800
+                        exit 1
+                }
         }
         Clear-Host
-        Install-Animation("packages")
 
         # Check for git installed
         try {
@@ -84,17 +106,8 @@ function Install-Packages {
                 Get-ExecutionPolicy
         }
 
-        # Scoop package manager installation
-        try {
-                scoop --version
-                Clear-Host
-        }
-        catch {
-                Install-Animation("Scoop")
-                Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
-                Set-ExecutionPolicy RemoteSigned -scope CurrentUser -Force
-        }
         
+        Install-Animation("packages")
         # Powershell plugins
         # Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
         Install-Module posh-git -Scope CurrentUser -Force
