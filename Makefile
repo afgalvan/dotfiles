@@ -2,8 +2,6 @@ install:
 	sudo apt update
 	sudo apt-get install curl
 	sudo apt install git
-	sudo apt install zsh
-	sudo chsh -s $(which zsh)
 	sudo apt install screenfetch
 	sudo apt install cmatrix
 	sudo apt install htop
