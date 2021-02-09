@@ -35,5 +35,11 @@ echo "."
 sleep 0.4
 sudo apt update
 sudo apt upgrade
-sudo apt install make
+if ! [ -x "$(command -v make)" ]; then
+    sudo apt install make
+fi
+if ! [ -x "$(command -v zsh)" ]; then
+    sudo apt install zsh
+fi
+sudo chsh -s $(which zsh) || sudo chsh -s usr/bin/zsh
 make install
