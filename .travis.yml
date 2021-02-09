@@ -1,7 +1,0 @@
-language: bash
-
-matrix:
-  include:
-    - os: linux
-      dist: focal
-      script: bash linux_installer.sh
