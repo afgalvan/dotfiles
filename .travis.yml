@@ -1,0 +1,8 @@
+dist: focal
+language: bash
+os:
+  - linux
+  - windows
+install:
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then bash linux_installer.sh; fi
+  - if [ "$TRAVIS_OS_NAME" = "windows" ]; then powershell -ExecutionPolicy ByPass -File windows_installer.ps1; fi
