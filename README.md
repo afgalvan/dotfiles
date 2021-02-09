@@ -1,8 +1,36 @@
 # dotfiles
 
-## To install in Windows
+My personal dotfiles
 
-Before start...
+## To install in Linux (zsh)
+
+clone the repository
+
+```bash
+git clone https://github.com/afgalvan/dotfiles.git
+```
+
+Go to the directory
+
+```bash
+cd dotfiles
+```
+
+Execute the installer
+
+```bash
+bash linux_installer.sh
+```
+
+## Linux Screen
+
+![screenshot](img/ubuntu.jpg "Ubuntu Desktop Screenshot")
+
+---
+
+## To install in Windows (powershell)
+
+**Before start...**
 
 - Run powershell/windows terminal as administator.
 
@@ -10,16 +38,24 @@ Before start...
 
 - Ensure that VS 2013, 2015, 2017 or 2019 was installed with the [Visual C++](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads) option.
 
-```powershell -ExecutionPolicy ByPass -File windows_installer.ps1```
+clone the repository
 
-## Screenshot
+```bash
+git clone https://github.com/afgalvan/dotfiles.git
+```
 
-![windows_screen](windows/windows_screen.png "Windows")
+Go to the directory
 
-## To install in Linux
+```bash
+cd dotfiles
+```
 
-```./linux_installer.sh```
+Execute the installer
 
-## Linux Screen
+```bash
+powershell -ExecutionPolicy ByPass -File windows_installer.ps1
+```
 
-![screenshot](desktop.jfif "Desktop")
+## Windows Screen
+
+![windows_screen](img/windows.png "Windows Desktop Screenshot")
