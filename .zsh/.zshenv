@@ -6,13 +6,13 @@ export NVM_DIR="$HOME/.nvm"
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
 
 # Path
-export PATH="/home/andres/.local/bin/pyinstaller:$PATH"
+export PATH="$HOME/.local/bin/pyinstaller:$PATH"
 export PATH="$PATH:$HOME/.config/yarn/global/node_modules/.bin"
 export PATH="$PATH:/usr/local/go/bin"
-export PATH="$PATH:/home/andres/.local/bin"
-export DENO_INSTALL="/home/andres/.deno"
+export PATH="$PATH:$HOME/.local/bin"
+export DENO_INSTALL="$HOME/.deno"
 export PATH="$DENO_INSTALL/bin/:$PATH"
-export PATH="/home/andres/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 export PATH="/opt/firefox/firefox:$PATH"
 export FX11="~/javafx-sdk-11.0.2"
 export FX15="~/javafx-sdk-15.0.1"

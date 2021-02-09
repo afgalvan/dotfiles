@@ -17,7 +17,7 @@ alias cmatrix='cmatrix -C red -s -u 9'
 alias create-app="~/.config/create-app/create_app.sh"
 alias javafx="~/.scripts/javafx.sh"
 alias screen='~/screen'
-export dotfiles_repo='/home/andres/Documents/Programming/dotfiles'
+export dotfiles_repo="$HOME/Documents/Programming/dotfiles"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
 alias prp='pipenv run python3'
 
@@ -38,5 +38,4 @@ else
   alias paste="xclip -sel clip -o"
 fi
 
-alias dotfiles="sudo cp ~/.zshrc $dotfiles_repo; sudo cp ~/.p10k.zsh $dotfiles_repo; sudo rsync -av --progress ~/.config/nvim/*  \"$dotfiles_repo/.config/nvim\" --exclude plugged"
-
+alias dotfiles="sudo cp ~/.zshrc $dotfiles_repo; sudo cp -r ~/.zsh $dotfiles_repo; sudo cp ~/.p10k.zsh $dotfiles_repo; sudo rsync -av --progress ~/.config/nvim/*  \"$dotfiles_repo/.config/nvim\" --exclude=plugged --exclude=pack"

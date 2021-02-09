@@ -32,9 +32,9 @@ fi
 # export ARCHFLAGS="-arch x86_64"
 
 export TERM=screen-256color
-source "$HOME/zsh/.functions"
-source "$HOME/zsh/.aliases"
-source "$HOME/zsh/.zshenv"
+source "$HOME/.zsh/.functions"
+source "$HOME/.zsh/.aliases"
+source "$HOME/.zsh/.zshenv"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/andres/.sdkman"
