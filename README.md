@@ -32,7 +32,7 @@ bash linux_installer.sh
 
 **Before start...**
 
-- Run powershell/windows terminal as administator.
+- Run powershell/windows terminal as administrator.
 
 - You'll need [cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html) installed in your machine and added in your path.
 
