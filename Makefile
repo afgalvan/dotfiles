@@ -16,7 +16,7 @@ install:
 	cd
 	ln -s -f .tmux/.tmux.conf
 	cp ~/.tmux/.tmux.conf.local ~/
-	curl https://sh.rustup.rs -sSf | sh
+	curl https://sh.rustup.rs -sSf | sh -y --profile default
 	source $HOME/.cargo/env
 	cargo install exa
 	cargo install bat
