@@ -1,11 +1,11 @@
 function Install-Animation($program) {
-        Write-Verbose -NoNewline "Installing $($program)" -ForegroundColor White
+        Write-Host -NoNewline "Installing $($program)" -ForegroundColor White
         Start-Sleep -Milliseconds 400
-        Write-Verbose -NoNewline "."
+        Write-Host -NoNewline "."
         Start-Sleep -Milliseconds 400
-        Write-Verbose -NoNewline "."
+        Write-Host -NoNewline "."
         Start-Sleep -Milliseconds 400
-        Write-Verbose "."
+        Write-Host "."
 }
 
 function Start-Prompt {
@@ -31,14 +31,13 @@ function Start-Prompt {
                                  ''''::::
 
 "
-        Start-Sleep -s 1
-        Write-Verbose -NoNewline "Starting installation"
+        Write-Host -NoNewline "Starting installation" -ForegroundColor White
         Start-Sleep -Milliseconds 400
-        Write-Verbose -NoNewline "."
+        Write-Host -NoNewline "."
         Start-Sleep -Milliseconds 400
-        Write-Verbose -NoNewline "."
+        Write-Host -NoNewline "."
         Start-Sleep -Milliseconds 400
-        Write-Verbose "."
+        Write-Host "."
         Start-Sleep -s 1
         Install-Packages
 }
@@ -49,7 +48,6 @@ function Install-Packages {
         }
         catch {
                 Install-Animation("Chocolatey")
-                Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
         }
 
         # Scoop package manager installation
@@ -60,7 +58,7 @@ function Install-Packages {
         catch {
                 Install-Animation("Scoop")
                 Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
-                Set-ExecutionPolicy RemoteSigned -scope CurrentUser -Force
+                # Set-ExecutionPolicy RemoteSigned -scope CurrentUser -Force
         }
 
         # Install cargo
@@ -68,14 +66,14 @@ function Install-Packages {
                 cargo --version
         }
         catch {
-                Write-Verbose "Cargo is not installed." -ForegroundColor Red
+                Write-Host "Cargo is not installed." -ForegroundColor Red
                 try {
                         Install-Animation("Cargo")
                         choco install rust -y
                 } catch {
-                        Write-Verbose "Installation failed" -ForegroundColor Red
-                        Write-Verbose "" -ForegroundColor Red
-                        Write-Verbose "Install it and try again." -ForegroundColor White
+                        Write-Host "Installation failed" -ForegroundColor Red
+                        Write-Host "" -ForegroundColor Red
+                        Write-Host "Install it and try again." -ForegroundColor White
                         Start-Sleep -Milliseconds 800
                         exit 1
                 }
