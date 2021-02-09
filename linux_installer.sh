@@ -42,4 +42,7 @@ if ! [ -x "$(command -v zsh)" ]; then
     sudo apt install zsh
 fi
 sudo chsh -s $(which zsh) || sudo chsh -s usr/bin/zsh
+sudo apt-get install curl
+curl -O https://raw.githubusercontent.com/rust-lang/rustup/master/rustup-init.sh && bash rustup-init.sh --profile=default -y
+source $HOME/.cargo/env
 make install

@@ -1,6 +1,4 @@
 install:
-	sudo apt update
-	sudo apt-get install curl
 	sudo apt install git
 	sudo apt install screenfetch
 	sudo apt install cmatrix
@@ -16,8 +14,6 @@ install:
 	cd
 	ln -s -f .tmux/.tmux.conf
 	cp ~/.tmux/.tmux.conf.local ~/
-	curl https://sh.rustup.rs -sSf | sh -y --profile default
-	source $HOME/.cargo/env
 	cargo install exa
 	cargo install bat
 	sudo apt update
