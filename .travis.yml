@@ -5,6 +5,3 @@ matrix:
     - os: linux
       dist: focal
       script: bash linux_installer.sh
-
-    - os: windows
-      script: powershell -ExecutionPolicy ByPass -File windows_installer.ps1
