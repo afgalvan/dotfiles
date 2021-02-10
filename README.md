@@ -28,6 +28,8 @@ bash installer.sh
 
 ---
 
+### -- UNCOMPLETED --
+
 ## To install in Windows (powershell)
 
 **Before start...**
