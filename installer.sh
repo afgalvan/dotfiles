@@ -86,7 +86,6 @@ install_cargo() {
 
 install_dependencies() {
     # Primary programs
-    # sudo apt update
     check_program 0 "git"
     check_program 0 "zsh"
     sudo chsh -s $(which zsh) || sudo chsh -s usr/bin/zsh
@@ -191,7 +190,7 @@ main() {
     if [ "$1" == "-u" ] || [ "$1" == "--update" ]; then
         clear
         title_prompt "⬇️" "$BLUE Starting Update"
-        # git pull origin main --ff-only
+        git pull origin main --ff-only
         send_to_home ".shell"
         send_to_home ".p10k.zsh"
         send_to_home ".tmux.conf.local"
@@ -203,10 +202,11 @@ main() {
     clear
     setup_colors
     echo -e "$BLUE$dotfiles_prompt$RESET"
+    sudo echo ""
     title_prompt "🚀️" "Starting Installation"
     detect_package_manager
     install_dependencies
-    echo ""
+    echo -e "\n"
     title_prompt "📦️" "Starting Setup"
     setup
     print "\n$BOLD$BLUE" " ~ Try restarting your terminal to see the changes. ~"
