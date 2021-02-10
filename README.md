@@ -7,7 +7,7 @@ My personal dotfiles
 clone the repository
 
 ```bash
-git clone https://github.com/afgalvan/dotfiles.git
+git clone --depth 1 https://github.com/afgalvan/dotfiles.git
 ```
 
 Go to the directory
@@ -19,7 +19,7 @@ cd dotfiles
 Execute the installer
 
 ```bash
-bash linux_installer.sh
+bash installer.sh
 ```
 
 ## Linux Screen
@@ -41,7 +41,7 @@ bash linux_installer.sh
 clone the repository
 
 ```bash
-git clone https://github.com/afgalvan/dotfiles.git
+git clone --depth 1 https://github.com/afgalvan/dotfiles.git
 ```
 
 Go to the directory
