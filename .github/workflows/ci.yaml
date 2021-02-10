@@ -22,9 +22,9 @@ jobs:
           ref: ${{ github.head_ref }}
 
       - name: Install (Linux)
-        run: bash linux_installer.sh
+        run: bash installer.sh
         if: matrix.os == 'ubuntu-20.04'
 
       - name: Install (Windows)
-        run: powershell -ExecutionPolicy ByPass -File windows_installer.ps1
+        run: powershell -ExecutionPolicy ByPass -File installer.ps1
         if: matrix.os == 'windows-latest'

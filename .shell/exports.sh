@@ -17,6 +17,5 @@ export PATH="/opt/firefox/firefox:$PATH"
 export FX11="~/javafx-sdk-11.0.2"
 export FX15="~/javafx-sdk-15.0.1"
 export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
-function gi() { curl -sLw n https://www.toptal.com/developers/gitignore/api/$@ ;}
 export PATH="/home/linuxbrew/.linuxbrew/opt/python@3.8/bin:$PATH"
 

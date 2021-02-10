@@ -1,5 +1,5 @@
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 export ZSH="$HOME/.oh-my-zsh"
@@ -12,29 +12,33 @@ DISABLE_AUTO_TITLE="true"
 ENABLE_CORRECTION="true"
 # COMPLETION_WAITING_DOTS="true"
 plugins=(
-  git
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-  python
-  pip
-  docker
-  node
+    git
+    git-auto-fetch
+    history
+    sudo
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+    python
+    pip
+    docker
+    node
+    alias-finder
 )
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nvim'
+    export EDITOR='nvim'
 else
-  export EDITOR='vim'
+    export EDITOR='vim'
 fi
 # export ARCHFLAGS="-arch x86_64"
 
 export TERM=screen-256color
-source "$HOME/.zsh/.functions"
-source "$HOME/.zsh/.aliases"
-source "$HOME/.zsh/.zshenv"
+source "$HOME/.shell/aliases.sh"
+source "$HOME/.shell/exports.sh"
+source "$HOME/.shell/functions.sh"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/andres/.sdkman"

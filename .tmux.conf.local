@@ -1,10 +1,3 @@
-# https://github.com/gpakosz/.tmux
-# (‑●‑●)> dual licensed under the WTFPL v2 license and the MIT license,
-#         without any warranty.
-#         Copyright 2012— Gregory Pakosz (@gpakosz).
-
-# -- windows & pane creation ---------------------------------------------------
-
 # new window retains current path, possible values are:
 #   - true
 #   - false (default)
@@ -76,7 +69,7 @@ tmux_conf_theme_mode_attr='bold'
 
 # status line style
 tmux_conf_theme_status_fg='#f2f2f2'                     # light gray
-tmux_conf_theme_status_bg='#282828' #282c35                     # dark gray
+tmux_conf_theme_status_bg='#282c35'                     # dark gray
 tmux_conf_theme_status_attr='none'
 
 # terminal title
@@ -98,7 +91,7 @@ tmux_conf_theme_terminal_title='Ubuntu'
 #     - #{username}
 #     - #{username_ssh}
 tmux_conf_theme_window_status_fg='#8a8a8a'              # light gray
-tmux_conf_theme_window_status_bg='#282828'              # dark gray
+tmux_conf_theme_window_status_bg='#282c35'              # dark gray
 tmux_conf_theme_window_status_attr='none'
 tmux_conf_theme_window_status_format='#I #W'
 tmux_conf_theme_window_status_format='#{circled_window_index} #W'
@@ -131,7 +124,7 @@ tmux_conf_theme_window_status_bell_attr='blink,bold'
 
 # window last status style
 tmux_conf_theme_window_status_last_fg='#00afff'         # light blue
-tmux_conf_theme_window_status_last_bg='#282828'
+tmux_conf_theme_window_status_last_bg='#282c35'
 tmux_conf_theme_window_status_last_attr='none'
 
 # status left/right sections separators
@@ -169,7 +162,7 @@ tmux_conf_theme_right_separator_sub='\uE0B3'  #   PowerlineSymbols.otf font, see
 #     - #{username}
 #     - #{username_ssh}
 tmux_conf_theme_status_left=' ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} '
-tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | WSL '
+tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | Linux '
 
 # status left style
 tmux_conf_theme_status_left_fg='#000000,#2a2a2a,#2a2a2a'  # dark gray, gray, gray
@@ -178,7 +171,7 @@ tmux_conf_theme_status_left_attr='bold,none,none'
 
 # status right style
 tmux_conf_theme_status_right_fg='#e4e4e4,#2a2a2a,#000000' # light gray, dark gray, black
-tmux_conf_theme_status_right_bg='#504945,#a89984,#e4e4e4' # dark gray, green, white
+tmux_conf_theme_status_right_bg='#3e4452,#a1d384,#e4e4e4' # dark gray, green, white
 tmux_conf_theme_status_right_attr='none,none,bold'
 
 # pairing indicator
@@ -280,7 +273,7 @@ unbind C-b
 set -g prefix C-a
 bind C-a send-prefix
 
-# move status line to top/bottom
+# move status line to top
 set -g status-position bottom
 set -g default-terminal 'tmux-256color' # replace this with your custom term-info name
 set -ga terminal-overrides ",*256col*:Tc"
