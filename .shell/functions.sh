@@ -15,7 +15,6 @@ runjava() {
     
     cd "../out/production/$class_name/"
     java "$class_name"
-    cd -
 }
 
 jrun() {
@@ -63,3 +62,4 @@ conanrun() {
     cd -
 }
 
+function gi() { curl -sLw n https://www.toptal.com/developers/gitignore/api/$* ;}
