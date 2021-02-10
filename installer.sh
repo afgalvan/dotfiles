@@ -126,7 +126,7 @@ is_setted() {
     echo -e "Checking for $WHITE$package$RESET"
     if [ ! -d "$path" ]; then
         print "$CYAN" ">> Downloading $BOLD$package...$RESET"
-        set_method
+        $set_method
         print "$CYAN" ">> $BOLD$package$RESET configured."
         return 1
     fi
@@ -152,7 +152,6 @@ setup() {
         } || {
         ln -s -f ~/.tmux/.tmux.conf ~/.tmux.conf
         sudo cp .tmux.conf.local ~/.tmux.conf.local
-        print "$CYAN" ">>$BOLD oh-my-tmux configured."
     }
     
     print "$GREEN" "✅️ Everything setup!"
