@@ -24,7 +24,7 @@ setup_colors() {
 print() {
     local color="$1"
     local text="$2"
-    
+
     echo -e "$color$text$RESET"
 }
 
@@ -36,7 +36,7 @@ installation_status() {
     local exit_code=$?
     local priority="$1" # 0. Indispensable, 1. Optional
     local program="$2"
-    
+
     if [ $exit_code -ne 0 ]; then
         print "\n$RED" "ERROR: $program couldn't be installed."
         if [ $priority -ne 0 ]; then
@@ -59,9 +59,9 @@ check_program() {
     else
         local install_method="$3"
     fi
-    
+
     echo -e "Checking for $WHITE$program$RESET"
-    
+
     if ! program_exists "$program"; then
         if [ $priority == 0 ]; then
             print "\n$YELLOW" "WARN: $program its not installed."
@@ -71,7 +71,7 @@ check_program() {
     else
         echo -e "$program$GREEN OK$RESET""."
     fi
-    
+
     installation_status "$priority" "$program"
 }
 
@@ -92,7 +92,7 @@ install_dependencies() {
     sudo chsh -s $(which zsh) || sudo chsh -s usr/bin/zsh
     check_program 0 "curl"
     install_cargo
-    
+
     # Optional or secondary programs
     check_program 1 "screenfetch"
     check_program 1 "cmatrix"
@@ -103,7 +103,7 @@ install_dependencies() {
         check_program 1 "exa" "cargo install exa"
         check_program 1 "bat" "cargo install bat"
     fi
-    
+
     if [ $errors \> 1 ]; then
         local s="s"
     fi
@@ -112,7 +112,7 @@ install_dependencies() {
     else
         print "\n$YELLOW" "⚠️  $errors package$s couldn't be installed."
         print "$YELLOW" "And some features won't be available:"
-        
+
         printf "• %s\n" "${failed_installs[@]}"
     fi
 }
@@ -121,7 +121,7 @@ is_setted() {
     local package="$1"
     local path="$2"
     local set_method="$3"
-    
+
     echo -e "Checking for $WHITE$package$RESET"
     if [ ! -d "$path" ]; then
         print "$CYAN" ">> Downloading $BOLD$package...$RESET"
@@ -134,7 +134,7 @@ is_setted() {
 }
 
 setup() {
-    
+
     # Terminal theme and plugins
     is_setted "Oh-my-zsh" "$HOME/.oh-my-zsh" sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     is_setted "Powerlevel10k" "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" "git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
@@ -144,7 +144,7 @@ setup() {
     sudo cp .p10k.zsh ~/.p10k.zsh
     is_setted "Syntax Highlighting" "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" "sudo git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
     is_setted "Autosuggestions" "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" "sudo git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
-    
+
     # Tmux theme
     {
         is_setted "oh-my-tmux" "$HOME/.tmux" "sudo git clone https://github.com/gpakosz/.tmux.git ~/.tmux"
@@ -152,14 +152,14 @@ setup() {
         ln -s -f ~/.tmux/.tmux.conf ~/.tmux.conf
         sudo cp .tmux.conf.local ~/.tmux.conf.local
     }
-    
+
     print "$GREEN" "✅️ Everything setup!"
 }
 
 detect_package_manager() {
     if program_exists apt; then
         package_manager="apt"
-        elif program_exists dnf; then
+    elif program_exists dnf; then
         package_manager="dnf"
     else
         print "$RED" "Platform not supported."
@@ -170,7 +170,7 @@ detect_package_manager() {
 send_to_home() {
     local file="$1"
     local target="$HOME/$file"
-    
+
     if [ -f "$target" ] || [ -d "$target" ]; then
         echo -e "\nThe file$BOLD$BLUE \"$target\"$RESET exists."
         if [ "$2" == "-f" ] || [ "$2" == "--force" ]; then
@@ -206,7 +206,7 @@ update() {
 title_prompt() {
     local emoji="$1"
     local process="$2"
-    
+
     printf "$emoji$BOLD $process"
     sleep 0.3
     printf "."
@@ -221,7 +221,7 @@ main() {
     setup_colors
     update "$@"
     local dotfiles_prompt=$(less -FX img/dotfiles)
-    
+
     clear
     echo -e "$BLUE$dotfiles_prompt$RESET"
     sudo echo ""
