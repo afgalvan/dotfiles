@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  beautify:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+
+      # Sign verified commits.
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v3
+        with:
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          git-user-signingkey: true
+          git-commit-gpgsign: true
+
+      - name: Run beautysh
+        uses: illvart/beautysh-action@latest
+        with:
+          # Pass beautysh options in args:
+          args: "*.sh --indent-size 4"
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "[auto] CI: apply beautysh formatting."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build:
+    strategy:
+      matrix:
+        os: ["ubuntu-20.04", "windows-latest"]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Install (Linux)
+        run: bash installer.sh
+        if: matrix.os == 'ubuntu-20.04'
+
+      - name: Install (Windows)
+        run: powershell -ExecutionPolicy ByPass -File installer.ps1
+        if: matrix.os == 'windows-latest'
