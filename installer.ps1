@@ -10,7 +10,7 @@ function Install-Animation($program) {
 
 function Start-Prompt {
     Clear-Host
-    $dot_files_msg = Get-Content installers/msg.txt
+    $dot_files_msg = Get-Content img/dotfiles
     Write-Output $dot_files_msg
     Write-Output "
                                  ....::::       
@@ -28,7 +28,7 @@ function Start-Prompt {
         '''':::::::::::: ::::::::::::::::       
                 '''':::: ::::::::::::::::       
                          ''''::::::::::::       
-                                 ''''::::
+                                 '''':::: POWERSHELL VERSION
 
 "
     Write-Host -NoNewline "Starting installation" -ForegroundColor White
@@ -111,11 +111,6 @@ function Install-Packages {
     Install-Module posh-git -Scope CurrentUser -Force
     Install-Module oh-my-posh -Scope CurrentUser -Force
 
-    # Screen fetch
-    # Set-ExecutionPolicy -ExecutionPolicy Unrestricted
-    Install-Module -Name windows-screenfetch
-    Import-Module windows-screenfetch
-
     # nvim installation
     scoop install neovim
     scoop install sudo
@@ -124,10 +119,10 @@ function Install-Packages {
     if (!(Test-Path $Profile)) { New-Item -Path $Profile -Type File -Force }
     
     # Powershell theme
-    $omp_version = "2.0.492"
-    Copy-Item windows/terminal/powershell_config/Custom-theme.psm1 $HOME/Documents/WindowsPowerShell/Modules/oh-my-posh/$omp_version/Themes/
-    Copy-Item windows/terminal/powershell_config/Microsoft.PowerShell_profile.ps1 $HOME/Documents/WindowsPowerShell/
-    Copy-Item .config/nvim/ $HOME/AppData/Local/
+    # $omp_version = "2.0.492"
+    # Copy-Item windows/terminal/powershell_config/Custom-theme.psm1 $HOME/Documents/WindowsPowerShell/Modules/oh-my-posh/$omp_version/Themes/
+    # Copy-Item windows/terminal/powershell_config/Microsoft.PowerShell_profile.ps1 $HOME/Documents/WindowsPowerShell/
+    # Copy-Item .config/nvim/ $HOME/AppData/Local/
 
     # Cargo packages installation
     cargo install bat

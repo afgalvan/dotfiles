@@ -21,15 +21,15 @@ setup_colors() {
     fi
 }
 
-program_exists() {
-    type "$1" >/dev/null 2>&1
-}
-
 print() {
     local color="$1"
     local text="$2"
     
     echo -e "$color$text$RESET"
+}
+
+program_exists() {
+    type "$1" >/dev/null 2>&1
 }
 
 installation_status() {
@@ -80,6 +80,7 @@ install_cargo() {
     if [ -f "rustup-init.sh" ]; then
         bash rustup-init.sh --profile=default -y
         rm -f rustup-init.sh
+        source $HOME/.cargo/env
     fi
     installation_status 1 "cargo"
 }
@@ -99,7 +100,6 @@ install_dependencies() {
     check_program 1 "nvim" "sudo apt install neovim"
     check_program 1 "tmux"
     if program_exists cargo; then
-        # source $HOME/.cargo/env
         check_program 1 "exa" "cargo install exa"
         check_program 1 "bat" "cargo install bat"
     fi
@@ -156,20 +156,6 @@ setup() {
     print "$GREEN" "✅️ Everything setup!"
 }
 
-title_prompt() {
-    local emoji="$1"
-    local process="$2"
-    
-    printf "$emoji$BOLD$WHITE $process$RESET"
-    sleep 0.3
-    printf "."
-    sleep 0.3
-    printf "."
-    sleep 0.3
-    echo "."
-    sleep 0.4
-}
-
 detect_package_manager() {
     if program_exists apt; then
         package_manager="apt"
@@ -182,32 +168,68 @@ detect_package_manager() {
 }
 
 send_to_home() {
-    file="$1"
-    sudo cp -r "$file" "$HOME/$file"
+    local file="$1"
+    local target="$HOME/$file"
+    
+    if [ -f "$target" ] || [ -d "$target" ]; then
+        echo -e "\nThe file$BOLD$BLUE \"$target\"$RESET exists."
+        if [ "$2" == "-f" ] || [ "$2" == "--force" ]; then
+            print "$YELLOW" "Force mode: it'll be replaced!$RESET"
+            sudo rm -rf "$target"
+            cp -r "$file" "$target"
+            return 0
+        fi
+        echo -e "Replacing and creating a backup..."
+        mv "$target" "$taget-old"
+        echo -e "$target has been moved to $target-old"
+    fi
+    cp -r "$file" "$target"
+}
+
+update() {
+    if [ "$1" == "-u" ] || [ "$1" == "--update" ]; then
+        clear
+        sudo echo ""
+        title_prompt "$BLUE⬇️ " "Starting Update"
+        cd "$dotfiles_repo"
+        git pull origin main --ff-only
+        send_to_home ".zshrc" "$2"
+        send_to_home ".shell" "$2"
+        send_to_home ".scripts" "$2"
+        send_to_home ".p10k.zsh" "$2"
+        send_to_home ".tmux.conf.local" "$2"
+        print "$BLUE" "\nLoad the changes with \$ source ~/.zshrc or restarting the terminal."
+        exit 0
+    fi
+}
+
+title_prompt() {
+    local emoji="$1"
+    local process="$2"
+    
+    printf "$emoji$BOLD $process"
+    sleep 0.3
+    printf "."
+    sleep 0.3
+    printf "."
+    sleep 0.3
+    echo -e ".$RESET"
+    sleep 0.4
 }
 
 main() {
-    if [ "$1" == "-u" ] || [ "$1" == "--update" ]; then
-        clear
-        title_prompt "⬇️" "$BLUE Starting Update"
-        git pull origin main --ff-only
-        send_to_home ".shell"
-        send_to_home ".p10k.zsh"
-        send_to_home ".tmux.conf.local"
-        exit 0
-    fi
-    
+    setup_colors
+    update "$@"
     local dotfiles_prompt=$(less -FX img/dotfiles)
     
     clear
-    setup_colors
     echo -e "$BLUE$dotfiles_prompt$RESET"
     sudo echo ""
-    title_prompt "🚀️" "Starting Installation"
+    title_prompt "🚀️$WHITE" "Starting Installation"
     detect_package_manager
     install_dependencies
     echo -e "\n"
-    title_prompt "📦️" "Starting Setup"
+    title_prompt "📦️$WHITE" "Starting Setup"
     setup
     print "\n$BOLD$BLUE" " ~ Try restarting your terminal to see the changes. ~"
 }
