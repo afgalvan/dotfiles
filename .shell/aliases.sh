@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # Aliases
+export dotfiles_repo="$HOME/Documents/Programming/dotfiles"
+
 alias vim='nvim'
 alias vimconfig='cd ~/.config/nvim; nvim init.vim'
 alias zshconfig='nvim ~/.zshrc'
@@ -8,11 +10,11 @@ alias tmuxconfig='nvim ~/.tmux.conf.local'
 alias p10kconfig='nvim ~/.p10k.zsh'
 alias college='cd ~/Documents/College'
 alias hack='cd ~/Documents/Programming'
-if ! [ -x "$(command -v exa)" ]; then
+if [ -x "$(command -v exa)" ]; then
     alias ls='exa --icons'
     alias tree='exa --icons -T'
 fi
-if ! [ -x "$(command -v bat)" ]; then
+if [ -x "$(command -v bat)" ]; then
     alias cat='bat'
 fi
 alias zupdate='sudo apt update'
@@ -21,7 +23,6 @@ alias cmatrix='cmatrix -C red -s -u 9'
 alias create-app="~/.config/create-app/create_app.sh"
 alias javafx="~/.scripts/javafx.sh"
 alias screen='~/screen'
-export dotfiles_repo="$HOME/Documents/Programming/dotfiles"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
 alias prp='pipenv run python3'
 
@@ -42,4 +43,5 @@ else
     alias paste="xclip -sel clip -o"
 fi
 
-alias dotfiles="sudo cp ~/.zshrc $dotfiles_repo; sudo cp -r ~/.zsh $dotfiles_repo; sudo cp ~/.p10k.zsh $dotfiles_repo; sudo cp ~/.tmux.conf.local $dotfiles_repo; sudo rsync -av --progress ~/.config/nvim/*  \"$dotfiles_repo/.config/nvim\" --exclude=plugged --exclude=pack"
+alias dotfiles="bash $dotfiles_repo/installer.sh"
+alias dotfiles_sync="sudo cp ~/.zshrc $dotfiles_repo; sudo cp -r ~/.zsh $dotfiles_repo; sudo cp ~/.p10k.zsh $dotfiles_repo; sudo cp ~/.tmux.conf.local $dotfiles_repo; sudo rsync -av --progress ~/.config/nvim/*  \"$dotfiles_repo/.config/nvim\" --exclude=plugged --exclude=pack"
