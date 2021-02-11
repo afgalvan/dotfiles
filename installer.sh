@@ -3,7 +3,9 @@
 ##? Setups the environment
 ##?
 ##? Usage:
-##?    installer
+##?    installer [option]
+## TODO: -o, --overwrite                 Change your config directories to $directory_name-old for be replaced for the new ones.
+##? -u --update [-f, --force]       Update your current configurations in force mode, those config are deleted.
 
 errors=0
 failed_installs=()
@@ -124,7 +126,7 @@ is_setted() {
 
     echo -e "Checking for $WHITE$package$RESET"
     if [ ! -d "$path" ]; then
-        print "$CYAN" ">> Downloading $BOLD$package...$RESET"
+        print "$CYAN" ">> Setting $BOLD$package...$RESET"
         $set_method
         print "$CYAN" ">> $BOLD$package$RESET configured."
         return 1
@@ -136,7 +138,7 @@ is_setted() {
 setup() {
 
     # Terminal theme and plugins
-    is_setted "Oh-my-zsh" "$HOME/.oh-my-zsh" sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    is_setted "oh-my-zsh" "$HOME/.oh-my-zsh" sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     is_setted "Powerlevel10k" "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" "git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
     if [ -d ~/.p10k.zsh ]; then
         sudo rm -f ~/.p10k.zsh
@@ -152,6 +154,7 @@ setup() {
         ln -s -f ~/.tmux/.tmux.conf ~/.tmux.conf
         sudo cp .tmux.conf.local ~/.tmux.conf.local
     }
+    is_setted "Neovim" "$HOME/.config/nvim" "cp -r .config/nvim $HOME/.config/nvim"
 
     print "$GREEN" "✅️ Everything setup!"
 }
@@ -173,7 +176,7 @@ send_to_home() {
 
     if [ -f "$target" ] || [ -d "$target" ]; then
         echo -e "\nThe file$BOLD$BLUE \"$target\"$RESET exists."
-        if [ "$2" == "-f" ] || [ "$2" == "--force" ]; then
+        if [ $force_mode -ne 0 ]; then
             print "$YELLOW" "Force mode: it'll be replaced!$RESET"
             sudo rm -rf "$target"
             cp -r "$file" "$target"
@@ -187,17 +190,22 @@ send_to_home() {
 }
 
 update() {
+    force_mode=0
+    if [ "$2" == "-f" ] || [ "$2" == "--force" ]; then
+        print "$YELLOW" "⚠️  Root permissions required."
+        force_mode=1
+        sudo echo ""
+    fi
     if [ "$1" == "-u" ] || [ "$1" == "--update" ]; then
         clear
-        sudo echo ""
         title_prompt "$BLUE⬇️ " "Starting Update"
         cd "$dotfiles_repo"
         git pull origin main --ff-only
-        send_to_home ".zshrc" "$2"
-        send_to_home ".shell" "$2"
-        send_to_home ".scripts" "$2"
-        send_to_home ".p10k.zsh" "$2"
-        send_to_home ".tmux.conf.local" "$2"
+        send_to_home ".zshrc"
+        send_to_home ".shell"
+        send_to_home ".scripts"
+        send_to_home ".p10k.zsh"
+        send_to_home ".tmux.conf.local"
         print "$BLUE" "\nLoad the changes with \$ source ~/.zshrc or restarting the terminal."
         exit 0
     fi
