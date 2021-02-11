@@ -1,7 +1,5 @@
 #!/bin/bash
 
-export JAVAFX_PATH="$HOME/.javafx"
-
 javafx() {
     local command="$1"
     local target="$2"
@@ -12,7 +10,7 @@ javafx() {
         local javafx_version="$3"
     fi
     
-    $command --module-path ~/.javafx/javafx-sdk-$javafx_version/lib --add-modules javafx.controls,javafx.fxml "$target"
+    $command --module-path "$JAVAFX_PATH/javafx-sdk-$javafx_version/lib" --add-modules javafx.controls,javafx.fxml "$target"
 }
 
 compile_javafx() {
@@ -37,7 +35,7 @@ main() {
         exit 0
     fi
     
-    compile_javafx "$@" && run_javafx "$@" || echo -e "\e[31mError on javafx compilation"; exit 1
+    compile_javafx "$@" && run_javafx "$@" || echo -e "\e[31mError on JavaFX compilation."; exit 1
 }
 
 main "$@"
