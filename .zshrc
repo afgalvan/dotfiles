@@ -18,6 +18,8 @@ plugins=(
     sudo
     zsh-autosuggestions
     zsh-syntax-highlighting
+    colored-man-pages
+    command-not-found
     python
     pip
     docker
