@@ -162,7 +162,7 @@ setup() {
 detect_package_manager() {
     if program_exists apt; then
         package_manager="apt"
-        elif program_exists dnf; then
+    elif program_exists dnf; then
         package_manager="dnf"
     else
         print "$RED" "Platform not supported."
