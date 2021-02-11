@@ -44,4 +44,4 @@ else
 fi
 
 alias dotfiles="bash $dotfiles_repo/installer.sh"
-alias dotfiles_sync="sudo cp ~/.zshrc $dotfiles_repo; sudo cp -r ~/.zsh $dotfiles_repo; sudo cp ~/.p10k.zsh $dotfiles_repo; sudo cp ~/.tmux.conf.local $dotfiles_repo; sudo rsync -av --progress ~/.config/nvim/*  \"$dotfiles_repo/.config/nvim\" --exclude=plugged --exclude=pack"
+alias dotfiles_sync="sudo cp ~/.zshrc $dotfiles_repo; sudo cp -r ~/.shell $dotfiles_repo; sudo cp ~/.p10k.zsh $dotfiles_repo; sudo cp ~/.tmux.conf.local $dotfiles_repo; sudo rsync -av --progress ~/.config/nvim/*  \"$dotfiles_repo/.config/nvim\" --exclude=plugged --exclude=pack"
