@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Aliases
-export dotfiles_repo="$HOME/Documents/Programming/dotfiles"
+source "$HOME/.shell/dotpath.sh"
 
 alias vim='nvim'
 alias vimconfig='cd ~/.config/nvim; nvim init.vim'
@@ -33,7 +33,7 @@ if [[ $(grep Microsoft /proc/version) ]]; then
     alias powershell='powershell.exe'
     alias python='python.exe'
     alias winterconfig='nvim /mnt/c/Users/Galvan/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json'
-    export dotfiles_repo="/mnt/d/Files/Programming/dotfiles"
+    export dotpath="/mnt/d/Files/Programming/dotfiles"
     # copy on WSL
     alias copy="clip.exe"
     alias paste="powershell.exe Get-Clipboard"
@@ -43,5 +43,5 @@ else
     alias paste="xclip -sel clip -o"
 fi
 
-alias dotfiles="bash $dotfiles_repo/installer.sh"
-alias dotfiles_sync="sudo cp ~/.zshrc $dotfiles_repo; sudo cp -r ~/.shell $dotfiles_repo; sudo cp ~/.p10k.zsh $dotfiles_repo; sudo cp ~/.tmux.conf.local $dotfiles_repo; sudo rsync -av --progress ~/.config/nvim/*  \"$dotfiles_repo/.config/nvim\" --exclude=plugged --exclude=pack"
+alias dotfiles="bash $dotpath/installer.sh"
+alias dotfiles_sync="sudo cp ~/.zshrc $dotpath; sudo cp -r ~/.shell $dotpath; sudo cp ~/.p10k.zsh $dotpath; sudo cp ~/.tmux.conf.local $dotpath; sudo rsync -av --progress ~/.config/nvim/*  \"$dotpath/.config/nvim\" --exclude=plugged --exclude=pack"

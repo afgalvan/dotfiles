@@ -131,43 +131,9 @@ is_setted() {
         print "$CYAN" ">> $BOLD$package$RESET configured."
         return 1
     fi
+    #TODO Solve #11
     echo -e "$package$GREEN OK$RESET""."
     return 0
-}
-
-setup() {
-
-    # Terminal theme and plugins
-    is_setted "oh-my-zsh" "$HOME/.oh-my-zsh" sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    is_setted "Powerlevel10k" "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" "git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
-    if [ -d ~/.p10k.zsh ]; then
-        sudo rm -f ~/.p10k.zsh
-    fi
-    sudo cp .p10k.zsh ~/.p10k.zsh
-    is_setted "Syntax Highlighting" "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" "sudo git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
-    is_setted "Autosuggestions" "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" "sudo git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
-
-    # Tmux theme
-    {
-        is_setted "oh-my-tmux" "$HOME/.tmux" "sudo git clone https://github.com/gpakosz/.tmux.git ~/.tmux"
-        } || {
-        ln -s -f ~/.tmux/.tmux.conf ~/.tmux.conf
-        sudo cp .tmux.conf.local ~/.tmux.conf.local
-    }
-    is_setted "Neovim" "$HOME/.config/nvim" "cp -r .config/nvim $HOME/.config/nvim"
-
-    print "$GREEN" "✅️ Everything setup!"
-}
-
-detect_package_manager() {
-    if program_exists apt; then
-        package_manager="apt"
-    elif program_exists dnf; then
-        package_manager="dnf"
-    else
-        print "$RED" "Platform not supported."
-        exit 1
-    fi
 }
 
 send_to_home() {
@@ -183,29 +149,74 @@ send_to_home() {
             return 0
         fi
         echo -e "Replacing and creating a backup..."
-        mv "$target" "$taget-old"
+        rm -rf "$target-old"
+        mv "$target" "$target-old"
         echo -e "$target has been moved to $target-old"
     fi
     cp -r "$file" "$target"
 }
 
+setup_environment() {
+    send_to_home ".zshrc"
+    send_to_home ".shell"
+    send_to_home ".scripts"
+    send_to_home ".p10k.zsh"
+    send_to_home ".tmux.conf.local"
+}
+
+setup() {
+
+    # Terminal theme and plugins
+    is_setted "oh-my-zsh" "$HOME/.oh-my-zsh" sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    is_setted "Powerlevel10k" "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" "git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
+    is_setted "Syntax Highlighting" "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" "sudo git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+    is_setted "Autosuggestions" "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" "sudo git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+
+    if [ -f "$HOME/.shell/dotpath.sh" ]; then
+        cd "$dotpath"
+    fi
+    # Tmux theme
+    {
+        is_setted "oh-my-tmux" "$HOME/.tmux" "sudo git clone https://github.com/gpakosz/.tmux.git ~/.tmux"
+        } || {
+        ln -s -f ~/.tmux/.tmux.conf ~/.tmux.conf
+        sudo cp .tmux.conf.local ~/.tmux.conf.local
+    }
+    is_setted "Neovim" "$HOME/.config/nvim" "cp -r .config/nvim $HOME/.config/nvim"
+    setup_environment
+    if [ ! -f "$HOME/.shell/dotpath.sh"  ]; then
+        echo -e "#!/bin/bash\nexport dotpath=\"$(pwd)\"" >> "$HOME/.shell/dotpath.sh"
+    fi
+
+    print "$GREEN" "✅️ Everything setup!"
+}
+
+detect_package_manager() {
+    if program_exists apt; then
+        package_manager="apt"
+        elif program_exists dnf; then
+        package_manager="dnf"
+    else
+        print "$RED" "Platform not supported."
+        exit 1
+    fi
+}
+
 update() {
-    force_mode=0
     if [ "$2" == "-f" ] || [ "$2" == "--force" ]; then
         print "$YELLOW" "⚠️  Root permissions required."
         force_mode=1
         sudo echo ""
     fi
+
+    local dot_dir=$(echo $dotpath)
     if [ "$1" == "-u" ] || [ "$1" == "--update" ]; then
         clear
         title_prompt "$BLUE⬇️ " "Starting Update"
-        cd "$dotfiles_repo"
+        cd "$dotpath"
         git pull origin main --ff-only
-        send_to_home ".zshrc"
-        send_to_home ".shell"
-        send_to_home ".scripts"
-        send_to_home ".p10k.zsh"
-        send_to_home ".tmux.conf.local"
+        setup_environment
+        echo -e "#!/bin/bash\nexport dotpath=\"$dot_dir\"" >> "$HOME/.shell/dotpath.sh"
         print "$BLUE" "\nLoad the changes with \$ source ~/.zshrc or restarting the terminal."
         exit 0
     fi
@@ -227,6 +238,7 @@ title_prompt() {
 
 main() {
     setup_colors
+    force_mode=0
     update "$@"
     local dotfiles_prompt=$(less -FX img/dotfiles)
 
