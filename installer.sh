@@ -3,7 +3,9 @@
 ##? Setups the environment
 ##?
 ##? Usage:
-##?    installer
+##?    installer [option]
+## TODO: -o, --overwrite                 Change your config directories to $directory_name-old for be replaced for the new ones.
+##? -u --update [-f, --force]       Update your current configurations in force mode, those config are deleted.
 
 errors=0
 failed_installs=()
@@ -124,7 +126,7 @@ is_setted() {
 
     echo -e "Checking for $WHITE$package$RESET"
     if [ ! -d "$path" ]; then
-        print "$CYAN" ">> Downloading $BOLD$package...$RESET"
+        print "$CYAN" ">> Setting $BOLD$package...$RESET"
         $set_method
         print "$CYAN" ">> $BOLD$package$RESET configured."
         return 1
@@ -148,7 +150,7 @@ setup() {
     # Tmux theme
     {
         is_setted "oh-my-tmux" "$HOME/.tmux" "sudo git clone https://github.com/gpakosz/.tmux.git ~/.tmux"
-        } && {
+        } || {
         ln -s -f ~/.tmux/.tmux.conf ~/.tmux.conf
         sudo cp .tmux.conf.local ~/.tmux.conf.local
     }
