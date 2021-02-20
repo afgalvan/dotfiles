@@ -1,0 +1,21 @@
+[user]
+	name = Andres Galvan
+	email = afgalvan@unicesar.edu.co
+	signingkey = 2C10F5272ADBBAE5
+[credential]
+	helper = cache
+[init]
+	defaultBranch = main
+[core]
+	pager = delta
+	editor = nvim
+[commit]
+	gpgsign = true
+[delta]
+	plus-color = "#012800"
+	minus-color = "#340001"
+	syntax-theme = Monokai Extended
+	side-by-side = true
+[interactive]
+    diffFilter = delta --color-only
+
