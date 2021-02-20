@@ -4,7 +4,6 @@
 ##?
 ##? Usage:
 ##?    installer [option]
-## TODO: -o, --overwrite                 Change your config directories to $directory_name-old for be replaced for the new ones.
 ##? -u --update [-f, --force]       Update your current configurations in force mode, those config are deleted.
 
 errors=0
@@ -105,7 +104,9 @@ install_dependencies() {
         check_program 1 "exa" "cargo install exa"
         check_program 1 "bat" "cargo install bat"
     fi
+}
 
+error_log() {
     if [ $errors \> 1 ]; then
         local s="s"
     fi
@@ -131,7 +132,6 @@ is_setted() {
         print "$CYAN" ">> $BOLD$package$RESET configured."
         return 1
     fi
-    #TODO Solve #11
     echo -e "$package$GREEN OK$RESET""."
     return 0
 }
@@ -167,7 +167,7 @@ setup_environment() {
 setup() {
 
     # Terminal theme and plugins
-    is_setted "oh-my-zsh" "$HOME/.oh-my-zsh" sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    is_setted "oh-my-zsh" "$HOME/.oh-my-zsh" "sudo sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\""
     is_setted "Powerlevel10k" "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" "git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
     is_setted "Syntax Highlighting" "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" "sudo git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
     is_setted "Autosuggestions" "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" "sudo git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
@@ -194,7 +194,7 @@ setup() {
 detect_package_manager() {
     if program_exists apt; then
         package_manager="apt"
-    elif program_exists dnf; then
+        elif program_exists dnf; then
         package_manager="dnf"
     else
         print "$RED" "Platform not supported."
@@ -251,6 +251,7 @@ main() {
     echo -e "\n"
     title_prompt "📦️$WHITE" "Starting Setup"
     setup
+    error_log
     print "\n$BOLD$BLUE" " ~ Try restarting your terminal to see the changes. ~"
 }
 
