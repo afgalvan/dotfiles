@@ -14,9 +14,9 @@
     typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
         # =========================[ Line #1 ]=========================
         os_icon                 # os identifier
-        # example               # example user-defined segment (see prompt_example function below)
         dir                     # current directory
         vcs                     # git status
+        docker
         # =========================[ Line #2 ]=========================
         newline                 # \n
         prompt_char             # prompt symbol
@@ -24,13 +24,15 @@
 
     typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
         # =========================[ Line #1 ]=========================
+        context                 # user@hostname
         status                  # exit code of the last command
         command_execution_time  # duration of the last command
         background_jobs         # presence of background jobs
         direnv                  # direnv status (https://direnv.net/)
-        # asdf                    # asdf version manager (https://github.com/asdf-vm/asdf)
+        # asdf                  # asdf version manager (https://github.com/asdf-vm/asdf)
         package                 # name@version from package.json (https://docs.npmjs.com/files/package.json)
         virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
+        gcc_version             # GCC/G++ compiler versions
         anaconda                # conda environment (https://conda.io/)
         pyenv                   # python environment (https://github.com/pyenv/pyenv)
         goenv                   # go environment (https://github.com/syndbg/goenv)
@@ -60,7 +62,6 @@
         azure                   # azure account name (https://docs.microsoft.com/en-us/cli/azure)
         gcloud                  # google cloud cli account and project (https://cloud.google.com/)
         google_app_cred         # google application credentials (https://cloud.google.com/docs/authentication/production)
-        context                 # user@hostname
         nordvpn                 # nordvpn connection status, linux only (https://nordvpn.com/)
         ranger                  # ranger shell (https://github.com/ranger/ranger)
         nnn                     # nnn shell (https://github.com/jarun/nnn)
@@ -73,16 +74,16 @@
         # ram                   # free RAM
         # swap                  # used swap
         todo                    # todo items (https://github.com/todotxt/todo.txt-cli)
-        # timewarrior             # timewarrior tracking status (https://timewarrior.net/)
-        # taskwarrior             # taskwarrior task count (https://taskwarrior.org/)
+        # timewarrior           # timewarrior tracking status (https://timewarrior.net/)
+        # taskwarrior           # taskwarrior task count (https://taskwarrior.org/)
         # time                  # current time
         # =========================[ Line #2 ]=========================
         newline
-        # ip                      # ip address and bandwidth usage for a specified network interface
+        # ip                    # ip address and bandwidth usage for a specified network interface
         # public_ip             # public IP address
         # proxy                 # system-wide http/https/ftp proxy
         # battery               # internal battery
-        # wifi                    # wifi speed
+        # wifi                  # wifi speed
     )
 
     # Defines character set used by powerlevel10k. It's best to let `p10k configure` set it for you.
@@ -351,7 +352,7 @@
     typeset -g POWERLEVEL9K_VCS_{STAGED,UNSTAGED,UNTRACKED,CONFLICTED,COMMITS_AHEAD,COMMITS_BEHIND}_MAX_NUM=-1
 
     # Icon color.
-    typeset -g POWERLEVEL9K_VCS_VISUAL_IDENTIFIER_COLOR=119
+    typeset -g POWERLEVEL9K_VCS_VISUAL_IDENTIFIER_COLOR=202
     typeset -g POWERLEVEL9K_VCS_LOADING_VISUAL_IDENTIFIER_COLOR=244
 
     typeset -g POWERLEVEL9K_VCS_BACKENDS=(git)
@@ -1002,12 +1003,31 @@
     typeset -g POWERLEVEL9K_TIME_FOREGROUND=66
     typeset -g POWERLEVEL9K_TIME_FORMAT='%D{%H:%M:%S}'
     typeset -g POWERLEVEL9K_TIME_UPDATE_ON_COMMAND=false
-    function prompt_example() {
-        p10k segment -f '#' -i $'\uf007' -t '%n '
+
+    function prompt_docker() {
+        local docker_version=$(docker --version | grep -o -E "([0-9]*\.[0-9])+" | head -1)
+
+        if [ $(exa -aF | grep -E "[^/]$" | grep -iE "docker|Docker") ] || [ $DOCKER_ON -ne 0 ]; then
+            p10k segment -f 33 -i $' \uF308'  -t "%Bv$docker_version "
+        fi
     }
 
-    function instant_prompt_example() {
-        prompt_example
+    function instant_docker() {
+        prompt_docker
+    }
+
+    function prompt_gcc_version() {
+        local gcc_v=$(gcc --version | grep -o -E "([0-9]*\.[0-9])+" | head -1)
+
+        if [ $(exa | grep -E "\.c$" | head -1) ]; then
+            p10k segment -f 243 -i $'\uE61E'  -t "%Bv$gcc_v "
+            elif [ $(exa | grep -E "\.cpp$" | head -1) ]; then
+            p10k segment -f 125 -i $'\uE61D'  -t "%Bv$gcc_v "
+        fi
+    }
+
+    function instant_gcc_version() {
+        gcc_version
     }
 
     typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=off
