@@ -1005,6 +1005,9 @@
     typeset -g POWERLEVEL9K_TIME_UPDATE_ON_COMMAND=false
 
     function prompt_docker() {
+        if [ ! -x "$(command -v docker)" ]; then
+            return
+        fi
         local docker_version=$(docker --version | grep -o -E "([0-9]*\.[0-9])+" | head -1)
 
         if [ $(exa -aF | grep -E "[^/]$" | grep -iE "docker|Docker") ] || [ $DOCKER_ON -ne 0 ]; then
