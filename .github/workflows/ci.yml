@@ -53,7 +53,9 @@ jobs:
           ref: ${{ github.head_ref }}
 
       - name: Install (Linux)
-        run: bash installer.sh
+        run: |
+          bash installer.sh
+          zsh
         if: matrix.os == 'ubuntu-20.04'
 
       - name: Install (Windows)
