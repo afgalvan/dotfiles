@@ -24,7 +24,7 @@ bash installer.sh
 
 ## Linux Screen
 
-![screenshot](img/ubuntu.jpg "Ubuntu Desktop Screenshot")
+![screenshot](img/ubuntu.png "Ubuntu Desktop Screenshot")
 
 ---
 
