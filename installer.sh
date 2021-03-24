@@ -167,11 +167,21 @@ setup_environment() {
 setup() {
 
     # Terminal theme and plugins
-    is_setted "oh-my-zsh" "$HOME/.oh-my-zsh" "echo" ||
-    sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    is_setted "Powerlevel10k" "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" "git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
-    is_setted "Syntax Highlighting" "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" "sudo git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
-    is_setted "Autosuggestions" "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" "sudo git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    curl -s "https://get.sdkman.io" | bash
+    source "$HOME/.sdkman/bin/sdkman-init.sh"
+    skd install kotlin
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+    sudo apt update && sudo apt install yarn
+    # is_setted "oh-my-zsh" "$HOME/.oh-my-zsh" "echo" ||
+    # sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    # is_setted "Powerlevel10k" "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" "git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
+    # is_setted "Syntax Highlighting" "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" "sudo git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+    # is_setted "Autosuggestions" "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" "sudo git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
 
     if [ -f "$HOME/.shell/dotpath.sh" ]; then
         cd "$dotpath"
@@ -184,7 +194,7 @@ setup() {
         sudo cp .tmux.conf.local ~/.tmux.conf.local
     }
     is_setted "Neovim" "$HOME/.config/nvim" "cp -r .config/nvim $HOME/.config/nvim"
-    setup_environment
+    # setup_environment
     if [ ! -f "$HOME/.shell/dotpath.sh"  ]; then
         echo -e "#!/bin/bash\nexport dotpath=\"$(pwd)\"" >> "$HOME/.shell/dotpath.sh"
     fi
@@ -216,7 +226,7 @@ update() {
         title_prompt "$BLUE⬇️ " "Starting Update"
         cd "$dotpath"
         git pull origin main --ff-only
-        setup_environment
+        # setup_environment
         echo -e "#!/bin/bash\nexport dotpath=\"$dot_dir\"" >> "$HOME/.shell/dotpath.sh"
         print "$BLUE" "\nLoad the changes with \$ source ~/.zshrc or restarting the terminal."
         exit 0
