@@ -23,7 +23,9 @@ plugins=(
     python
     pip
     docker
+    git-extra-commands
     node
+    gradle-completion
     alias-finder
 )
 
@@ -44,4 +46,4 @@ source "$HOME/.shell/functions.sh"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "/home/andres/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

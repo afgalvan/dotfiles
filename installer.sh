@@ -171,30 +171,30 @@ setup() {
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    curl -s "https://get.sdkman.io" | bash
-    source "$HOME/.sdkman/bin/sdkman-init.sh"
-    skd install kotlin
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
     sudo apt update && sudo apt install yarn
+    curl -s "https://get.sdkman.io" | bash
+    source "$HOME/.sdkman/bin/sdkman-init.sh"
+    sdk install gradle 6.8.1
     # is_setted "oh-my-zsh" "$HOME/.oh-my-zsh" "echo" ||
     # sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     # is_setted "Powerlevel10k" "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" "git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
     # is_setted "Syntax Highlighting" "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" "sudo git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
     # is_setted "Autosuggestions" "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" "sudo git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
 
-    if [ -f "$HOME/.shell/dotpath.sh" ]; then
-        cd "$dotpath"
-    fi
-    # Tmux theme
-    {
-        is_setted "oh-my-tmux" "$HOME/.tmux" "sudo git clone https://github.com/gpakosz/.tmux.git ~/.tmux"
-        } || {
-        ln -s -f ~/.tmux/.tmux.conf ~/.tmux.conf
-        sudo cp .tmux.conf.local ~/.tmux.conf.local
-    }
-    is_setted "Neovim" "$HOME/.config/nvim" "cp -r .config/nvim $HOME/.config/nvim"
-    # setup_environment
+    # if [ -f "$HOME/.shell/dotpath.sh" ]; then
+    #     cd "$dotpath"
+    # fi
+    # # Tmux theme
+    # {
+    #     is_setted "oh-my-tmux" "$HOME/.tmux" "sudo git clone https://github.com/gpakosz/.tmux.git ~/.tmux"
+    #     } || {
+    #     ln -s -f ~/.tmux/.tmux.conf ~/.tmux.conf
+    #     sudo cp .tmux.conf.local ~/.tmux.conf.local
+    # }
+    # is_setted "Neovim" "$HOME/.config/nvim" "cp -r .config/nvim $HOME/.config/nvim"
+    # # setup_environment
     if [ ! -f "$HOME/.shell/dotpath.sh"  ]; then
         echo -e "#!/bin/bash\nexport dotpath=\"$(pwd)\"" >> "$HOME/.shell/dotpath.sh"
     fi

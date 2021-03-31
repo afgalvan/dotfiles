@@ -775,6 +775,7 @@
     typeset -g POWERLEVEL9K_JAVA_VERSION_CONTENT_EXPANSION='%Bv${P9K_CONTENT}'
     # Show java version only when in a java project subdirectory.
     typeset -g POWERLEVEL9K_JAVA_VERSION_PROJECT_ONLY=true
+    #typeset -g POWERLEVEL9K_JAVA_VERSION_PROJECT_ONLY=false
     # Show brief version.
     typeset -g POWERLEVEL9K_JAVA_VERSION_FULL=false
     # Custom icon.
@@ -1010,7 +1011,7 @@
         fi
         local docker_version=$(docker --version | grep -o -E "([0-9]*\.[0-9])+" | head -1)
 
-        if [ $(exa -aF | grep -E "[^/]$" | grep -iE "docker|Docker") ] || [ $DOCKER_ON -ne 0 ]; then
+        if [ $(exa -aF | grep -E "[^/]$" | grep "^Dockerfile$") ] || [ $DOCKER_ON -ne 0 ]; then
             p10k segment -f 33 -i $' \uF308'  -t "%Bv$docker_version "
         fi
     }

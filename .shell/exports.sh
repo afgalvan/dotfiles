@@ -19,4 +19,4 @@ export FX15="~/javafx-sdk-15.0.1"
 export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
 export JAVAFX_PATH="$HOME/.javafx"
 export PATH="/home/linuxbrew/.linuxbrew/opt/python@3.8/bin:$PATH"
-
+export DOCKER_ON=0

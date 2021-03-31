@@ -17,6 +17,9 @@ fi
 if [ -x "$(command -v bat)" ]; then
     alias cat='bat'
 fi
+if [ -x "$(command --version trash)" ]; then
+    alias rm='trash'
+fi
 alias zupdate='sudo apt update'
 alias xupgrade='sudo apt upgrade'
 alias cmatrix='cmatrix -C red -s -u 9'
@@ -45,3 +48,4 @@ fi
 
 alias dotfiles="bash $dotpath/installer.sh"
 alias dotfiles_sync="sudo cp ~/.zshrc $dotpath; sudo cp -r ~/.shell $dotpath; sudo cp ~/.p10k.zsh $dotpath; sudo cp ~/.tmux.conf.local $dotpath; sudo rsync -av --progress ~/.config/nvim/*  \"$dotpath/.config/nvim\" --exclude=plugged --exclude=pack"
+alias dotsync="rm -rf ~/.zshrc ~/.p10k.zsh; ln -s $dotpath/.p10k.zsh  $HOME/.p10k.zsh; ln -s $dotpath/.zshrc $HOME/.zshrc"
