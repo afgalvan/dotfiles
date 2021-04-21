@@ -97,4 +97,60 @@ extract () {
     fi
 }
 
+kubectl() {
+    local docker_version=$(docker --version | grep -o -E "([0-9]*\.[0-9])+" | head -1)
+
+    if [ -z "$1" ]; then
+        docker --help
+        return 1
+        elif [ "$1" == "run" ]; then
+        if [ "$2" != "--docker" ]; then
+            echo "Kubernetes wasn't installed in the full version."
+            echo "Please enter a Container provider."
+            return 1
+        fi
+        if [ $DOCKER_ON == 1 ]; then
+            echo "A Docker instance it's already running."
+            return 0
+        fi
+        echo "Starting local Docker v$docker_version container..."
+        sleep 0.1
+        echo "Starting VM..."
+        sleep 2.3
+        echo "Getting VM IP adress..."
+        sleep 1
+        echo "Connecting to cluster..."
+        sleep 0.6
+        echo "Verifying kubelet health..."
+        printf "Verifying apiserver health..."
+        echo -e " Docker instance is now configured to be used.\n\n"
+        echo "Share images, automate workflows, and more with a free Docker ID:"
+        echo " https://hub.docker.com/"
+        DOCKER_ON=1
+
+        elif [ "$1" == "status" ];then
+        if [ $DOCKER_ON == 1 ]; then
+            echo "\e[92m \e[97m Containers running.\e[0m"
+        else
+            echo "\e[31m \e[90m Containers off.\e[0m"
+        fi
+
+        elif [ "$1" == "kill" ]; then
+        if [ $DOCKER_ON == 0 ]; then
+            echo -e "\e[31mERROR: \e[0mNo Docker instance it's running."
+            return 1
+        fi
+        echo "  Destroying node..."
+        sleep 1.2
+        echo "  Destroying container..."
+        sleep 1.5
+        echo "  Docker instance stopped."
+        DOCKER_ON=0
+    else
+        echo "kubectl: '$1' is not a Kubernetes command."
+        echo "See 'kubectl --help'"
+        return 1
+    fi
+}
+
 function gi() { curl -sLw n https://www.toptal.com/developers/gitignore/api/$* ;}
