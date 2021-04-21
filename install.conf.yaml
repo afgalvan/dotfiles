@@ -1,14 +1,13 @@
 - defaults:
     link:
       relink: true
+      force: true
 
 - clean: ["~"]
 
 - link:
-    ~/.oh-my-zsh: oh-my-zsh
     ~/.scripts: scripts
     ~/.shell: shell
-    ~/.tmux: tmux
     ~/.config/nvim: vim/nvim
     ~/.gitconfig: gitconfig
     ~/.zshrc: zsh/zshrc
@@ -21,22 +20,15 @@
 - shell:
     - git submodule update --init --recursive
     - sudo pip3 install --user --upgrade neovim
-    - ./setup/vim-plug-init
+    - bash setup/vim-plug-init
 
 - link:
-    ~/.vim/autoload/plug.vim:
-      path: vim/autoload/plug.vim
-      create: true
-      relink: false
-      force: false
+    ~/.tmux: tmux
 
 - shell:
-    - ./setup/vim-plug-install
+    - bash setup/vim-plug-install
     - rm ~/.tmux/.tmux.conf.local
     - cp tmux.conf.local ~/.tmux/.tmux.conf.local
     - ln -s -f ~/.tmux/.tmux.conf ~/.tmux.conf
     - cp ~/.tmux/.tmux.conf.local ~/
-    - git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-    - git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    - git clone git://github.com/gradle/gradle-completion ~/.oh-my-zsh/plugins/gradle-completion
-    - git clone https://github.com/unixorn/git-extra-commands.git ~/.oh-my-zsh/custom/plugins/git-extra-commands
+    - bash setup/zsh-plug-install
