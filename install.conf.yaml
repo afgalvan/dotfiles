@@ -1,0 +1,34 @@
+- defaults:
+    link:
+      relink: true
+      force: true
+
+- clean: ["~"]
+
+- link:
+    ~/.scripts: scripts
+    ~/.shell: shell
+    ~/.config/nvim: vim/nvim
+    ~/.gitconfig: gitconfig
+    ~/.zshrc: zsh/zshrc
+    ~/.p10k.zsh: zsh/p10k.zsh
+
+- create:
+    - ~/downloads
+    - ~/.vim/undo-history
+
+- shell:
+    - git submodule update --init --recursive
+    - sudo pip3 install --user --upgrade neovim
+    - bash setup/vim-plug-init
+
+- link:
+    ~/.tmux: tmux
+
+- shell:
+    - bash setup/vim-plug-install
+    - rm ~/.tmux/.tmux.conf.local
+    - cp tmux.conf.local ~/.tmux/.tmux.conf.local
+    - ln -s -f ~/.tmux/.tmux.conf ~/.tmux.conf
+    - cp ~/.tmux/.tmux.conf.local ~/
+    - bash setup/zsh-plug-install

@@ -14,9 +14,17 @@ export DENO_INSTALL="$HOME/.deno"
 export PATH="$DENO_INSTALL/bin/:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/opt/firefox/firefox:$PATH"
+export JUNIT_HOME="/usr/local/bin/junit-4.13.2.jar"
 export FX11="~/javafx-sdk-11.0.2"
 export FX15="~/javafx-sdk-15.0.1"
 export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
 export JAVAFX_PATH="$HOME/.javafx"
-export PATH="/home/linuxbrew/.linuxbrew/opt/python@3.8/bin:$PATH"
 export DOCKER_ON=0
+
+# Oracle XE
+export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe
+export ORACLE_SID=XE
+export NLS_LANG=`$ORACLE_HOME/bin/nls_lang.sh`
+export ORACLE_BASE=/u01/app/oracle
+export LD_LIBRARY_PATH=$ORACLE_HOME/lib:$LD_LIBRARY_PATH
+export PATH=$ORACLE_HOME/bin:$PATH

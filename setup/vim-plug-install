@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+if [ -f vim/autoload/plug.vim ]; then
+	echo "Installing plugins"
+	vim +PlugInstall +qall
+fi
