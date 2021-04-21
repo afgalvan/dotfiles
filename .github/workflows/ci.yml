@@ -50,4 +50,6 @@ jobs:
           ref: ${{ github.head_ref }}
 
       - name: Install (Linux)
-        run: bash install
+        run: |
+          ls
+          ./install

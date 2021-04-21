@@ -19,7 +19,7 @@
 
 - shell:
     - git submodule update --init --recursive
-    - sudo pip3 install --user --upgrade neovim
+    - sudo pip3 install --user --upgrade neovim || echo "pass"
     - bash setup/vim-plug-init
 
 - link:
