@@ -22,7 +22,7 @@ DOTBOT_BIN="bin/dotbot"
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 setup_colors
-local dotfiles_prompt=$(less -FX img/dotfiles)
+dotfiles_prompt=$(less -FX img/dotfiles)
 clear
 echo "$BLUE$dotfiles_prompt$RESET"
 sudo echo ""
