@@ -19,7 +19,7 @@ compilejava() {
 
 runjava() {
     local file_name="$1"
-    local class_name=$(echo $file_name | cut -d '.' -f 1)
+    local class_name=$(echo $vim-plugfile_name | cut -d '.' -f 1)
 
     cd "../out/production/$class_name/"
     java "$class_name"
@@ -151,6 +151,15 @@ kubectl() {
         echo "See 'kubectl --help'"
         return 1
     fi
+}
+
+function add-alias() {
+    echo "alias $1=\"$2\"" >> $HOME/.shell/aliases.sh
+}
+
+function mkcd() {
+    mkdir "$1"
+    cd "$1"
 }
 
 function gi() { curl -sLw n https://www.toptal.com/developers/gitignore/api/$* ;}

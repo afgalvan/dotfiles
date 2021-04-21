@@ -1,9 +1,10 @@
-[submodule ".tmux"]
-	path = .tmux
-	url = https://github.com/gpakosz/.tmux
-[submodule ".config/nvim/plugged"]
-	path = .config/nvim/plugged
-	url = https://github.com/junegunn/vim-plug
-[submodule ".oh-my-zsh"]
-	path = .oh-my-zsh
+[submodule "dotbot"]
+	path = dotbot
+	url = https://github.com/anishathalye/dotbot
+	ignore = dirty
+[submodule "ohmyzsh"]
+	path = ohmyzsh
 	url = https://github.com/ohmyzsh/ohmyzsh
+[submodule "tmux"]
+	path = tmux
+	url = https://github.com/gpakosz/.tmux

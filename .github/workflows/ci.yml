@@ -41,10 +41,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build:
-    strategy:
-      matrix:
-        os: ["ubuntu-20.04", "windows-latest"]
-    runs-on: ${{ matrix.os }}
+    runs-on: "ubuntu-20.04"
 
     steps:
       - name: Checkout
@@ -54,10 +51,4 @@ jobs:
 
       - name: Install (Linux)
         run: |
-          bash installer.sh
-          zsh
-        if: matrix.os == 'ubuntu-20.04'
-
-      - name: Install (Windows)
-        run: powershell -ExecutionPolicy ByPass -File installer.ps1
-        if: matrix.os == 'windows-latest'
+          ./install

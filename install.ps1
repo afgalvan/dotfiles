@@ -1,3 +1,27 @@
+$ErrorActionPreference = "Stop"
+
+$CONFIG = "install.conf.yaml"
+$DOTBOT_DIR = "dotbot"
+
+$DOTBOT_BIN = "bin/dotbot"
+$BASEDIR = $PSScriptRoot
+
+Set-Location $BASEDIR
+git -C $DOTBOT_DIR submodule sync --quiet --recursive
+git submodule update --init --recursive $DOTBOT_DIR
+
+foreach ($PYTHON in ('python', 'python3', 'python2')) {
+    # Python redirects to Microsoft Store in Windows 10 when not installed
+    if (& { $ErrorActionPreference = "SilentlyContinue"
+            ![string]::IsNullOrEmpty((&$PYTHON -V))
+            $ErrorActionPreference = "Stop" }) {
+        &$PYTHON $(Join-Path $BASEDIR -ChildPath $DOTBOT_DIR | Join-Path -ChildPath $DOTBOT_BIN) -d $BASEDIR -c $CONFIG $Args
+        Start-Prompt
+        return
+    }
+}
+Write-Error "Error: Cannot find Python."
+
 function Install-Animation($program) {
     Write-Host -NoNewline "Installing $($program)" -ForegroundColor White
     Start-Sleep -Milliseconds 400
@@ -13,21 +37,21 @@ function Start-Prompt {
     $dot_files_msg = Get-Content img/dotfiles
     Write-Output $dot_files_msg
     Write-Output "
-                                 ....::::       
-                         ....::::::::::::       
-                ....:::: ::::::::::::::::       
-        ....:::::::::::: ::::::::::::::::       
-        :::::::::::::::: ::::::::::::::::       
-        :::::::::::::::: ::::::::::::::::       
-        :::::::::::::::: ::::::::::::::::       
-        :::::::::::::::: ::::::::::::::::       
-        ................ ................       
-        :::::::::::::::: ::::::::::::::::       
-        :::::::::::::::: ::::::::::::::::       
-        :::::::::::::::: ::::::::::::::::       
-        '''':::::::::::: ::::::::::::::::       
-                '''':::: ::::::::::::::::       
-                         ''''::::::::::::       
+                                 ....::::
+                         ....::::::::::::
+                ....:::: ::::::::::::::::
+        ....:::::::::::: ::::::::::::::::
+        :::::::::::::::: ::::::::::::::::
+        :::::::::::::::: ::::::::::::::::
+        :::::::::::::::: ::::::::::::::::
+        :::::::::::::::: ::::::::::::::::
+        ................ ................
+        :::::::::::::::: ::::::::::::::::
+        :::::::::::::::: ::::::::::::::::
+        :::::::::::::::: ::::::::::::::::
+        '''':::::::::::: ::::::::::::::::
+                '''':::: ::::::::::::::::
+                         ''''::::::::::::
                                  '''':::: POWERSHELL VERSION
 
 "
@@ -98,13 +122,13 @@ function Install-Packages {
         $git_install_inf = "<install inf file>"
         $install_args = "/SP- /VERYSILENT /SUPPRESSMSGBOXES /NOCANCEL /NORESTART /CLOSEAPPLICATIONS /RESTARTAPPLICATIONS /LOADINF=""$git_install_inf"""
         Start-Process -FilePath $installer -ArgumentList $install_args -Wait
-    
+
         # Restart shell
         $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
         Get-ExecutionPolicy
     }
 
-    
+
     Install-Animation("packages")
     # Powershell plugins
     # Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
@@ -117,7 +141,7 @@ function Install-Packages {
 
     # Check the if powershell profile exists
     if (!(Test-Path $Profile)) { New-Item -Path $Profile -Type File -Force }
-    
+
     # Powershell theme
     # $omp_version = "2.0.492"
     # Copy-Item windows/terminal/powershell_config/Custom-theme.psm1 $HOME/Documents/WindowsPowerShell/Modules/oh-my-posh/$omp_version/Themes/
@@ -128,5 +152,3 @@ function Install-Packages {
     cargo install bat
     cargo install --git https://github.com/zkat/exa --force
 }
-
-Start-Prompt

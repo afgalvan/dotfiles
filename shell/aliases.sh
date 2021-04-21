@@ -1,8 +1,10 @@
 #!/bin/bash
 
-# Aliases
-source "$HOME/.shell/dotpath.sh"
+program_exists() {
+    type "$1" >/dev/null 2>&1
+}
 
+# Aliases
 alias vim='nvim'
 alias vimconfig='cd ~/.config/nvim; nvim init.vim'
 alias zshconfig='nvim ~/.zshrc'
@@ -10,14 +12,14 @@ alias tmuxconfig='nvim ~/.tmux.conf.local'
 alias p10kconfig='nvim ~/.p10k.zsh'
 alias college='cd ~/Documents/College'
 alias hack='cd ~/Documents/Programming'
-if [ -x "$(command -v exa)" ]; then
+if program_exists "exa"; then
     alias ls='exa --icons'
     alias tree='exa --icons -T'
 fi
-if [ -x "$(command -v bat)" ]; then
+if program_exists "bat"; then
     alias cat='bat'
 fi
-if [ -x "$(command --version trash)" ]; then
+if program_exists "trash"; then
     alias rm='trash'
 fi
 alias zupdate='sudo apt update'
@@ -49,3 +51,7 @@ fi
 alias dotfiles="bash $dotpath/installer.sh"
 alias dotfiles_sync="sudo cp ~/.zshrc $dotpath; sudo cp -r ~/.shell $dotpath; sudo cp ~/.p10k.zsh $dotpath; sudo cp ~/.tmux.conf.local $dotpath; sudo rsync -av --progress ~/.config/nvim/*  \"$dotpath/.config/nvim\" --exclude=plugged --exclude=pack"
 alias dotsync="rm -rf ~/.zshrc ~/.p10k.zsh; ln -s $dotpath/.p10k.zsh  $HOME/.p10k.zsh; ln -s $dotpath/.zshrc $HOME/.zshrc"
+alias di="docker images"
+alias compose="docker-compose"
+alias please="sudo"
+alias gradlew="./gradlew"

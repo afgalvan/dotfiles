@@ -16,17 +16,17 @@ plugins=(
     git-auto-fetch
     history
     sudo
-    zsh-autosuggestions
-    zsh-syntax-highlighting
     colored-man-pages
     command-not-found
     python
     pip
     docker
-    git-extra-commands
     node
-    gradle-completion
     alias-finder
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+    gradle-completion
+    git-extra-commands
 )
 
 source $ZSH/oh-my-zsh.sh
