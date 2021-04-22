@@ -4,6 +4,7 @@ if !empty(glob('~/.vim/autoload/plug.vim'))
         Plug 'vim-syntastic/syntastic' "Syntax
         Plug 'bfrg/vim-cpp-modern' "C/Cpp Syntax
         Plug 'sheerun/vim-polyglot' "Syntax highlighter
+        Plug 'kaicataldo/material.vim', { 'branch': 'main' }
         Plug 'bling/vim-airline' "Status bar
         Plug 'vim-airline/vim-airline-themes' "Status bar custom
         Plug 'preservim/nerdtree' "Folder manager
