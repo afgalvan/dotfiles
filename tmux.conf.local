@@ -69,7 +69,7 @@ tmux_conf_theme_mode_attr='bold'
 
 # status line style
 tmux_conf_theme_status_fg='#f2f2f2'                     # light gray
-tmux_conf_theme_status_bg='#282c35'                     # dark gray
+tmux_conf_theme_status_bg='#1a1b1f'                     # dark gray
 tmux_conf_theme_status_attr='none'
 
 # terminal title
@@ -91,7 +91,7 @@ tmux_conf_theme_terminal_title='Ubuntu'
 #     - #{username}
 #     - #{username_ssh}
 tmux_conf_theme_window_status_fg='#8a8a8a'              # light gray
-tmux_conf_theme_window_status_bg='#282c35'              # dark gray
+tmux_conf_theme_window_status_bg='#1a1b1f'              # dark gray
 tmux_conf_theme_window_status_attr='none'
 tmux_conf_theme_window_status_format='#I #W'
 tmux_conf_theme_window_status_format='#{circled_window_index} #W'
@@ -124,7 +124,7 @@ tmux_conf_theme_window_status_bell_attr='blink,bold'
 
 # window last status style
 tmux_conf_theme_window_status_last_fg='#00afff'         # light blue
-tmux_conf_theme_window_status_last_bg='#282c35'
+tmux_conf_theme_window_status_last_bg='#1a1b1f'
 tmux_conf_theme_window_status_last_attr='none'
 
 # status left/right sections separators
