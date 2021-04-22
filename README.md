@@ -19,7 +19,7 @@ cd dotfiles
 Execute the installer
 
 ```bash
-./install
+./install.sh
 ```
 
 ## Linux Screen
