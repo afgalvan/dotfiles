@@ -11,17 +11,11 @@ function Write-Theme {
     ## Left Part
     $prompt = Set-Newline
     $currentFolder += Split-Path -Path (Get-Location) -Leaf
-    $prompt = Write-Prompt -Object "$($sl.PromptSymbols.StartSymbol) " -ForegroundColor $sl.Colors.SessionInfoForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
-    $pathSymbol = if (($pwd.Path -eq $HOME) -or ($pwd.Path -eq "D:\")) {
-        $sl.PromptSymbols.PathHomeSymbol
-    }
-    elseif ($currentFolder -eq "Programming") {
-        $sl.PromptSymbols.ComputerSymbol
-    }
-    else { $sl.PromptSymbols.PathSymbol }
+    $prompt = Write-Prompt -Object "$($sl.PromptSymbols.SystemSymbol) " -ForegroundColor $sl.Colors.SessionInfoForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
+    $pathSymbol = if (($pwd.Path -eq $HOME) -or ($pwd.Path -eq "D:\")) { $sl.PromptSymbols.PathHomeSymbol } else { $sl.PromptSymbols.PathSymbol }
 
     # Writes the drive portion
-    $path = $pathSymbol + " " + ($currentFolder) + " "
+    $path = " " + $pathSymbol + "  " + ($currentFolder) + "  "
     $prompt += Write-Prompt -Object $path -ForegroundColor $sl.Colors.DriveForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
 
     $status = Get-VCSStatus
@@ -35,7 +29,6 @@ function Write-Theme {
         $prompt += Write-Prompt -Object $sl.PromptSymbols.SegmentSubForwardSymbol -ForegroundColor $sl.Colors.PromptForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
         $prompt += Write-Prompt -Object $sWith -ForegroundColor $sl.Colors.WithForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
     }
-    $prompt += Write-Prompt -Object $sl.PromptSymbols.SegmentForwardSymbol -ForegroundColor $sl.Colors.SessionInfoBackgroundColor
 
     $prompt += Write-Prompt -Object "`r"
     $prompt += Set-Newline
@@ -50,9 +43,9 @@ function Write-Theme {
 }
 
 $sl = $global:ThemeSettings #local settings
-$sl.PromptSymbols.StartSymbol = [char]::ConvertFromUtf32(0xe62a)
+$sl.PromptSymbols.SystemSymbol = [char]::ConvertFromUtf32(0xe62a)
 $sl.PromptSymbols.ErrorSymbol = [char]::ConvertFromUtf32(0x2718)
-$sl.PromptSymbols.PromptIndicator = [char]::ConvertFromUtf32(0x279C)
+$sl.PromptSymbols.PromptIndicator = [char]::ConvertFromUtf32(0x03BB)
 $sl.PromptSymbols.SegmentForwardSymbol = [char]::ConvertFromUtf32(0xE0B0)
 $sl.PromptSymbols.SegmentSubForwardSymbol = [char]::ConvertFromUtf32(0xE0B1)
 $sl.PromptSymbols.SegmentBackwardSymbol = [char]::ConvertFromUtf32(0xE0B2)
