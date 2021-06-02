@@ -128,7 +128,7 @@ kubectl() {
         echo " https://hub.docker.com/"
         DOCKER_ON=1
 
-    elif [ "$1" == "status" ];then
+        elif [ "$1" == "status" ];then
         if [ $DOCKER_ON == 1 ]; then
             echo "\e[92m \e[97m Containers running.\e[0m"
         else
