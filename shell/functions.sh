@@ -127,7 +127,7 @@ dck() {
     if [ -z "$1" ]; then
         docker --help
         return 1
-        elif [[ "$1" == "run" ]]; then
+    elif [[ "$1" == "run" ]]; then
         if [[ $DOCKER_ON == 1 ]]; then
             echo "A Docker instance it's already running."
             return 0
@@ -153,7 +153,7 @@ dck() {
             echo "\e[31m \e[90m Containers off.\e[0m"
         fi
 
-        elif [[ "$1" == "kill" ]]; then
+    elif [[ "$1" == "kill" ]]; then
         if [[ $DOCKER_ON == 0 ]]; then
             echo -e "\e[31mERROR: \e[0mNo Docker instance it's running."
             return 1
