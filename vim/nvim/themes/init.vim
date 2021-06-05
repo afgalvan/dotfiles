@@ -1,4 +1,4 @@
-"Airline configurations
+" Airline configurations
 source $HOME/.config/nvim/themes/airline.vim
 
 if (has('nvim'))
