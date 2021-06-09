@@ -16,7 +16,7 @@ export PATH="$HOME/.local/bin:$PATH"
 export JUNIT_HOME="/usr/local/bin/junit-4.13.2.jar"
 export FX11="~/javafx-sdk-11.0.2"
 export FX15="~/javafx-sdk-15.0.1"
-export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
+export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java"
 export JAVAFX_PATH="$HOME/.javafx"
 export DOCKER_ON=0
 

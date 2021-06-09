@@ -1,17 +1,9 @@
 - defaults:
-  link:
-    relink: true
-    force: true
+    link:
+      relink: true
+      force: true
 
 - clean: ["~"]
-
-- shell:
-    - git submodule update --init --recursive
-    - sudo apt install zsh
-    - sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    - sudo apt install tmux
-    - git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-    - sudo apt install neovim
 
 - link:
     ~/.scripts: scripts
@@ -27,6 +19,12 @@
     - ~/.vim/undo-history
 
 - shell:
+    - git submodule update --init --recursive
+    - sudo apt install zsh
+    - sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    - sudo apt install tmux
+    - git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+    - sudo apt install neovim
     - sudo apt install python3 python3-pip
     - curl https://sh.rustup.rs -sSf | sh -y --profile default
     - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
