@@ -14,13 +14,13 @@
     - sudo apt install neovim
 
 - link:
-  ~/.scripts: scripts
-  ~/.shell: shell
-  ~/.config/nvim: vim/nvim
-  ~/.gitconfig: gitconfig
-  ~/.zshrc: zsh/zshrc
-  ~/.p10k.zsh: zsh/p10k.zsh
-  ~/.tmux: tmux
+    ~/.scripts: scripts
+    ~/.shell: shell
+    ~/.config/nvim: vim/nvim
+    ~/.gitconfig: gitconfig
+    ~/.zshrc: zsh/zshrc
+    ~/.p10k.zsh: zsh/p10k.zsh
+    ~/.tmux: tmux
 
 - create:
     - ~/downloads
