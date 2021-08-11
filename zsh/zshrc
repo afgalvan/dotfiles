@@ -21,6 +21,8 @@ plugins=(
     python
     pip
     docker
+    docker-compose
+    dotnet
     node
     alias-finder
     zsh-autosuggestions

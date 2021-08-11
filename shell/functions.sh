@@ -1,12 +1,12 @@
 #!/bin/bash
-YELLOW="\e[33m"
-BLUE="\e[34m"
-RED="\e[31m"
-GREEN="\e[32m"
-CYAN="\e[36m"
-BOLD="\e[1m"
-WHITE="\e[97m"
-RESET="\e[0m"
+export YELLOW="\e[33m"
+export BLUE="\e[34m"
+export RED="\e[31m"
+export GREEN="\e[32m"
+export CYAN="\e[36m"
+export BOLD="\e[1m"
+export WHITE="\e[97m"
+export RESET="\e[0m"
 
 compilejava() {
     local file_name="$1"
@@ -88,6 +88,11 @@ conanrun() {
     cd -
 }
 
+localhost(){
+    local port="$1"
+    xdg-open "http://localhost:$port"
+}
+
 docker-run() {
     local image_tag="$1"
     local runner_name="$1-runner"
@@ -121,7 +126,7 @@ extract() {
     fi
 }
 
-dck() {
+dock() {
     local docker_version=$(docker --version | grep -o -E "([0-9]*\.[0-9])+" | head -1)
 
     if [ -z "$1" ]; then

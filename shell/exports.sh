@@ -12,13 +12,15 @@ export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export DENO_INSTALL="$HOME/.deno"
 export PATH="$DENO_INSTALL/bin/:$PATH"
+export PATH="$PATH:$HOME/.dotnet/tools"
 export PATH="$HOME/.local/bin:$PATH"
 export JUNIT_HOME="/usr/local/bin/junit-4.13.2.jar"
 export FX11="~/javafx-sdk-11.0.2"
 export FX15="~/javafx-sdk-15.0.1"
-export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java"
+export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/"
 export JAVAFX_PATH="$HOME/.javafx"
 export DOCKER_ON=0
+export codegen_trace=1
 
 # Oracle XE
 export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe
