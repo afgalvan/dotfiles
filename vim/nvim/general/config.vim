@@ -11,11 +11,14 @@ set clipboard=unnamedplus
 syntax on "Syntax
 
 " Indent size config
-set cindent
+" set cindent
 set tabstop=8
-set autoindent
-set smartindent
+set softtabstop=0
+set expandtab
 set shiftwidth=4
+set smarttab
+set autoindent
+" set smartindent
 
 " Copy/paste
 set pastetoggle=<f5>

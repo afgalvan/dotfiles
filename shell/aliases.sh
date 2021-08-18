@@ -10,7 +10,6 @@ alias vimconfig='cd ~/.config/nvim; nvim init.vim'
 alias zshconfig='nvim ~/.zshrc'
 alias tmuxconfig='nvim ~/.tmux.conf.local'
 alias p10kconfig='nvim ~/.p10k.zsh'
-alias college='cd ~/Documents/College'
 alias hack='cd ~/Documents/Programming'
 if program_exists "exa"; then
     alias ls='exa --icons'
@@ -64,3 +63,4 @@ alias .net="dotnet"
 alias dotnew="dotnet new"
 alias ef="dotnet ef"
 alias actions="$HOME/Documents/Programming/Projects/actions/actions-runner/run.sh"
+alias check-end="notify-send -i face-wink "Finished""

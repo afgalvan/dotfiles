@@ -2,7 +2,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ ! -f ~/.p11k.zsh ]] || source ~/.p10k.zsh
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
 
 # Path
@@ -23,9 +23,8 @@ export DOCKER_ON=0
 export codegen_trace=1
 
 # Oracle XE
-export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe
+export ORACLE_HOME=/opt/oracle/product/18c/dbhomeXE
 export ORACLE_SID=XE
-export NLS_LANG=`$ORACLE_HOME/bin/nls_lang.sh`
-export ORACLE_BASE=/u01/app/oracle
+export ORACLE_BASE=/opt/oracle
 export LD_LIBRARY_PATH=$ORACLE_HOME/lib:$LD_LIBRARY_PATH
 export PATH=$ORACLE_HOME/bin:$PATH

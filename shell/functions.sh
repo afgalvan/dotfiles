@@ -195,4 +195,19 @@ function mvc() {
     cd -
 }
 
+function ddd() {
+    local package="$1"
+    mkcd "$package"
+    mkdir Domain Infrastructure Application
+    cd -
+}
+
+function college() {
+    local subject="$1"
+
+    local target="$HOME/Documents/College/subjects"
+    cd "$target"
+    [[ ! -z "$subject" ]] && cd "$subject" || ls
+}
+
 function gi() { curl -sLw n https://www.toptal.com/developers/gitignore/api/$* ;}
