@@ -1,7 +1,6 @@
 [user]
 	name = Andres Galvan
-	email = afgalvan@unicesar.edu.co
-	signingkey = E54591DF24AAC2D5
+	email = andresgalfajar@gmail.com
 [credential]
 	helper = cache
 [init]
@@ -15,7 +14,7 @@
 	syntax-theme = Monokai Extended
 	side-by-side = true
 [interactive]
-    diffFilter = delta --color-only
+	diffFilter = delta --color-only
 
 [commit]
 	gpgsign = true

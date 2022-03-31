@@ -1,0 +1,81 @@
+#!/bin/bash
+
+out-create() {
+    local problem_id="$1"
+    local website_folder="$2"
+    local web_url="$3"
+    local raw_endpoint="$4"
+    local target_dir="$HOME/documents/programming/autonomic-jump/challenges/code/$website_folder/$problem_id"
+    local raw_url="https://raw.githubusercontent.com/$raw_endpoint"
+    
+    if [[ $(curl -s -o /dev/null -w "%{http_code}" "$web_url") != 200 ]]; then
+        echo -e "$RED ERROR: in LINK. fetching url returned a non 200 response: $web_url";
+        return 1;
+    fi
+
+    if [[ $(curl -s -o /dev/null -w "%{http_code}" "$raw_url") != 200 ]]; then
+        echo -e "$RED ERROR: in OTHERS. fetching url returned a non 200 response: $raw_url";
+        return 1;
+    fi
+
+    mkdir -p "$target_dir" &&
+        echo -e "$web_url" > "$target_dir"/LINK.lst &&
+        echo -e "$raw_url" > "$target_dir"/OTHERS.lst
+    echo -e "$GREEN New external solution added for $BOLD$CYAN$website_folder$RESET$GREEN :)"
+    bat "$target_dir"/OTHERS.lst
+}
+
+codeforces() {
+    local problem_number="$1"
+    local letter="$2"
+
+    local upper_letter=${letter:u}
+    local problem_id="$problem_number$letter"
+    local website_folder="codeforces"
+    local web_url="https://codeforces.com/problemset/problem/$problem_number/$upper_letter"
+    local raw_endpoint="tridibsamanta/Codeforces_Solutions/master/$problem_number$upper_letter.cpp"
+
+    out-create "$problem_id" "$website_folder" "$web_url" "$raw_endpoint"
+}
+
+uva() {
+    local problem_index="$1"
+    local problem_number="$2"
+    local problem_id="$problem_index$problem_number"
+
+    local website_folder="uva-online-judge"
+    local web_url="https://onlinejudge.org/external/$problem_index/$problem_id.pdf"
+    local raw_endpoint="codingsince1985/UVa/master/$problem_id/$problem_id.go"
+
+    out-create "$problem_id" "$website_folder" "$web_url" "$raw_endpoint"
+}
+
+target-dir-of() {
+    local web="$1"
+    local problem_number="$2"
+    local letter="$3"
+
+    case $web in
+        "uva") echo "uva-online-judge/";;
+        "codeforces") echo "codeforces/";;
+    esac
+}
+
+out-new-bash() {
+    local web="$1"
+    local problem_number="$2"
+    local letter="$3"
+    local web_dir=$(target-dir-of "$web" "$problem_number" "$letter")
+    local target_dir="$HOME/documents/programming/autonomic-jump/challenges/code/$web_dir$problem_number$letter"
+
+    {
+        exa --icons "$target_dir"
+    } && {
+        bat "$target_dir/OTHERS.lst" && echo -e "$RED Exist? :( $RESET\n" || $web "$problem_number" "$letter"
+    } || {
+        $web "$problem_number" "$letter"
+    }
+}
+
+out-new-bash "$1" "$2" "$3"
+

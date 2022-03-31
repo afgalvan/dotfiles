@@ -25,7 +25,7 @@
     - sudo apt install python3 python3-pip -y
     - curl https://sh.rustup.rs -sSf | sh -s -- -y
     - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
-    - nvm install 14.17.0
+    - nvm install 16.14.0
     - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
     - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
     - sudo apt update && sudo apt install yarn -y
@@ -34,4 +34,5 @@
     - ln -s -f ~/.tmux/.tmux.conf ~/.tmux.conf
     - cp ~/.tmux/.tmux.conf.local ~/
     - bash setup/zsh-plug-install
-    - cargo install exa bat delta
+    - cargo install exa bat git-delta
+    - sh <(curl -L https://nixos.org/nix/install) --daemon

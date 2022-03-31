@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Replace ${makesSrc} with the git-clone of:
+# https://github.com/fluidattacks/makes
+
+makesSrc="$HOME/documents/programming/fluidattacks/makes"
+
+black \
+  --config \
+  "${makesSrc}/src/evaluator/modules/format-python/settings-black.toml" \
+  - \
+  | \
+isort \
+  --settings-path \
+  "${makesSrc}/src/evaluator/modules/format-python/settings-isort.toml" \
+  -
