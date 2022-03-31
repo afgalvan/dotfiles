@@ -1,7 +1,7 @@
 [user]
 	name = Andres Galvan
 	email = afgalvan@unicesar.edu.co
-	signingkey = 2C10F5272ADBBAE5
+	signingkey = E54591DF24AAC2D5
 [credential]
 	helper = cache
 [init]
@@ -9,8 +9,6 @@
 [core]
 	pager = delta
 	editor = nvim
-[commit]
-	gpgsign = true
 [delta]
 	plus-color = "#012800"
 	minus-color = "#340001"
@@ -19,3 +17,5 @@
 [interactive]
     diffFilter = delta --color-only
 
+[commit]
+	gpgsign = true

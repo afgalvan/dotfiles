@@ -8,6 +8,45 @@ export BOLD="\e[1m"
 export WHITE="\e[97m"
 export RESET="\e[0m"
 
+rank() {
+    local page="$1"
+    local rows="$2"
+    echo $((50 * ($page - 1) + $rows))
+}
+
+aj-set() {
+    local current_challenge="$1"
+    echo "$current_challenge" > ~/.ajrc
+}
+
+aj-go() {
+    local current_challenge=$( tail -n 1 ~/.ajrc )
+    aj && cd "code/codeabbey/$current_challenge"
+}
+
+out-new() {
+    /mnt/g/Documents/Programming/Projects/bash/dotfiles/shell/out_new.py $@
+}
+
+re() {
+    local file_name="$1"
+    local executable_name=$(echo $file_name | cut -d '.' -f 1)
+    ocamlc -o "$executable_name" -pp "refmt -p ml" -impl "$file_name" && ./"$executable_name"
+}
+
+gpl() {
+    local file_name="$1"
+    local executable_name=$(echo $file_name | cut -d '.' -f 1)
+    gplc "$file_name" && ./"$executable_name"
+}
+
+fort() {
+    local files=("$@")
+    local executable="${files[-1]}"
+    local executable_name=$(echo $executable | cut -d '.' -f 1)
+    gfortran "${files[@]}" -o "$executable_name.o" && ./"$executable_name.o"
+}
+
 compilejava() {
     local file_name="$1"
     local class_name=$(echo $file_name | cut -d '.' -f 1)
@@ -126,53 +165,49 @@ extract() {
     fi
 }
 
-dock() {
+DOCKER_DISTRO="Ubuntu"
+DOCKER_DIR=/mnt/wsl/shared-docker
+DOCKER_SOCK="$DOCKER_DIR/docker.sock"
+export DOCKER_HOST="unix://$DOCKER_SOCK"
+
+docker-start() {
+    if [ ! -S "$DOCKER_SOCK" ]; then
+        mkdir -pm o=,ug=rwx "$DOCKER_DIR"
+        chgrp docker "$DOCKER_DIR"
+        /mnt/c/Windows/System32/wsl.exe -d $DOCKER_DISTRO sh -c "nohup sudo -b dockerd < /dev/null > $DOCKER_DIR/dockerd.log 2>&1"
+    fi
+}
+
+docker-service() {
     local docker_version=$(docker --version | grep -o -E "([0-9]*\.[0-9])+" | head -1)
 
-    if [ -z "$1" ]; then
-        docker --help
-        return 1
-    elif [[ "$1" == "run" ]]; then
-        if [[ $DOCKER_ON == 1 ]]; then
-            echo "A Docker instance it's already running."
-            return 0
-        fi
-        echo "Starting local Docker v$docker_version container..."
-        sleep 0.1
-        echo "Starting VM..."
-        echo "Getting VM IP adress..."
-        sleep 1
-        echo "Connecting to cluster..."
-        sleep 0.6
-        echo "Verifying kubelet health..."
-        printf "Verifying apiserver health..."
-        echo -e " Docker instance is now configured to be used.\n\n"
-        echo "Share images, automate workflows, and more with a free Docker ID:"
-        echo " https://hub.docker.com/"
-        DOCKER_ON=1
-
-        elif [[ "$1" == "status" ]];then
+    if [[ "$1" == "status" ]]; then
         if [[ $DOCKER_ON == 1 ]]; then
             echo "\e[92m \e[97m Containers running.\e[0m"
         else
             echo "\e[31m \e[90m Containers off.\e[0m"
         fi
-
     elif [[ "$1" == "kill" ]]; then
         if [[ $DOCKER_ON == 0 ]]; then
             echo -e "\e[31mERROR: \e[0mNo Docker instance it's running."
             return 1
         fi
-        echo "  Destroying node..."
-        sleep 1.2
-        echo "  Destroying container..."
-        sleep 1.5
-        echo "\e[31m \e[0m Docker instance stopped."
         DOCKER_ON=0
+        echo "  Destroying node..."
+        echo "  Destroying container..."
+        echo "\e[31m \e[0m Docker instance stopped."
     else
-        echo "dck: '$1' is not a valid command."
-        echo "See 'kubectl --help'"
-        return 1
+        if [[ $DOCKER_ON == 1 ]]; then
+            echo "A Docker instance it's already running."
+            return 0
+        fi
+        echo "Starting local Docker v$docker_version container..."
+        docker-start
+
+        echo -e "Docker instance is now configured to be used.\n"
+        echo "Share images, automate workflows, and more with a free Docker ID:"
+        echo " https://hub.docker.com/"
+        DOCKER_ON=1
     fi
 }
 

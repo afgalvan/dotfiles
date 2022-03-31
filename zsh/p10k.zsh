@@ -1010,10 +1010,7 @@
             return
         fi
         local docker_version=$(docker --version | grep -o -E "([0-9]*\.[0-9])+" | head -1)
-
-        if [ $(exa -aF | grep -E "[^/]$" | grep "^Dockerfile$") ] || [ $DOCKER_ON -ne 0 ]; then
-            p10k segment -f 33 -i $' \uF308'  -t "%Bv$docker_version "
-        fi
+        p10k segment -f 33 -i $' \uF308'  -t "%Bv$docker_version "
     }
 
     function instant_docker() {
